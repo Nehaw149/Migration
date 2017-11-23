@@ -1,0 +1,22 @@
+{
+    "html": {
+        "input": {
+            "type": [
+                "radio",
+                "text",
+                "submit",
+                "password",
+                "reset",
+                "checkbox",
+                "date"
+            ],
+            "value": "",
+            "name": ""
+        },
+        "select": 123,
+        "option": "",
+        "textarea": "",
+        "button": "",
+        "label": ""
+    }
+}

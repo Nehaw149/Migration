@@ -1,0 +1,34 @@
+[
+    [
+       [
+          {
+             "name": "LTEXT",
+             "value": [
+                "\",N,u,m,b,e,r,s,:,\",,,,I,D,C,_,S,T,A,T,I,C,,,"
+             ]
+          },
+          [
+             "BEGIN"
+          ],
+          [
+             null,
+             null,
+             null
+          ],
+          [
+             {
+                "name": "LTEXT",
+                "value": [
+                   "\",N,u,m,b,e,r,s,:,\",,,,I,D,C,_,S,T,A,T,I,C,,,"
+                ]
+             },
+             {
+                "name": "LTEXT",
+                "value": [
+                   "\",N,u,m,b,e,r,s,:,\",,,,I,D,C,_,S,T,A,T,I,C,,,"
+                ]
+             }
+          ]
+       ]
+    ]
+ ]

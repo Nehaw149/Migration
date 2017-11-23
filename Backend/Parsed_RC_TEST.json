@@ -1,0 +1,60 @@
+{
+    "Parsed_RC": {
+       "Directive_Obj": [],
+       "States_Obj": [
+          [
+             [
+                {
+                   "StateName_Obj0": "ShapesMenu"
+                },
+                [
+                   {
+                      "_attributes_Obj0": [
+                         [
+                            "MENU",
+                            null
+                         ]
+                      ]
+                   }
+                ],
+                [
+                   "NL"
+                ]
+             ],
+             [
+                [
+                   {
+                      "loopStart_0": 0,
+                      "child_0": [
+                         [
+                            {
+                               "StateName_Obj1": "POPUP"
+                            },
+                            [
+                               {
+                                  "_attributes_Obj0": [
+                                     [
+                                        "\"&Shape\"",
+                                        null
+                                     ]
+                                  ]
+                               }
+                            ],
+                            [
+                               "NL"
+                            ]
+                         ]
+                      ]
+                   },
+                   [
+                      {
+                         "loopEnd_0": 0
+                      }
+                   ]
+                ]
+             ]
+          ]
+       ],
+       "ENDING": "EOF"
+    }
+ }

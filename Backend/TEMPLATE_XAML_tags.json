@@ -1,0 +1,30 @@
+{
+    "Window": {
+        "Title": "",
+        "Height": "",
+        "Width": ""
+    },
+    "TextBlock": "",
+    "Button": {
+        "HorizontalAlignment": "",
+        "VerticalAlignment": "",
+        "_content": ""
+    },
+    "Label": {
+        "_content": "",
+        "FontWeight": ""
+    },
+    "CheckBox": {
+        "IsChecked": false,
+        "_innerHTML": ""
+    },
+    "RadioButton": {
+        "GroupName": "",
+        "IsChecked": false,
+        "_innerHTML": ""
+    },
+    "PasswordBox": "",
+    "StackPanel": {
+        "Margin": ""
+    }
+}

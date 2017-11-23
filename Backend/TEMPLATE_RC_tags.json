@@ -1,0 +1,109 @@
+{
+    "rc": { //idm= identfierMigration
+        "BLOCK": {
+            "idm": 1,
+            "_text": ""
+        },
+        "CAPTION": {
+            "idm": 2,
+            "_text": ""
+        },
+        "CHECKBOX": {
+            "idm": 3,
+            "_text": "",
+            "id": "",
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
+        "COMBOBOX": {
+            "idm": 4,
+            "id": "",
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": "",
+            "style": ""
+        },
+        "CONTROL": {
+            "idm": 5,
+            "controlText": "",
+            "id": "",
+            "className": {
+                "BUTTON": "",
+                "STATIC": "",
+                "EDIT": {
+                    "EDITTEXT": {
+                        "id": "",
+                        "x": "",
+                        "y": "",
+                        "width": "",
+                        "height": ""
+                    }
+                },
+                "LISTBOX": {
+                    "idm": 6
+                },
+                "SCROLLBAR": {
+                    "idm": 7
+                }
+            }
+        },
+        "DEFPUSHBUTTON": {
+            "idm": 8,
+            "_text": "",
+            "id": "",
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
+        "FONT": {
+            "idm": 9,
+            "pointsize": "",
+            "typeface": ""
+        },
+        "LTEXT": {
+            "idm": 10,
+            "_text": "",
+            "id": "",
+            "x": "",
+            "y": "",
+            "width": "",
+            "height": ""
+        },
+        "MENU": {
+            "idm": 11
+        },
+        "MENUITEM": {
+            "idm": 12,
+            "_text": "", // &: for underline on first character and shortcut \t and \a can be included in the text for tabbing/align
+            "result": "",
+            "optionlist": [
+                "CHECKED",
+                "GRAYED",
+                "HELP",
+                "INACTIVE"
+            ]
+        },
+        "POPUP": {
+            "idm": 13
+        },
+        "TEXTINCLUDE": {
+            "idm": 14
+        },
+        "VALUE": {
+            "idm": 15,
+            "Translation": "",
+            "Parameters": ""
+        }
+    },
+    "styles": {
+        "idm": 16,
+        "WS_TABSTOP": "",
+        "WS_VSCROLL": "",
+        "TOPMARGIN": "",
+        "BOTTOMMARGIN": ""
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "Parsed_RC": {
+       "Directive_Obj": [
+          {
+             "Directive_1": {
+                "Dir": "include",
+                "_text": "\"shapes.h\""
+             }
+          }
+       ],
+       "States_Obj": [
+          [
+             [
+                {
+                   "StateName_Obj0": "ShapesMenu"
+                },
+                [
+                   {
+                      "_attributes_Obj0": [
+                         [
+                            "MENU",
+                            null
+                         ]
+                      ]
+                   }
+                ],
+                [
+                   "NL"
+                ]
+             ],
+             [
+                [
+                   {
+                      "loopStart_0": 0,
+                      "child_0": [
+                         [
+                            {
+                               "StateName_Obj1": "POPUP"
+                            },
+                            [
+                               {
+                                  "_attributes_Obj0": [
+                                     [
+                                        "\"&Shape\"",
+                                        null
+                                     ]
+                                  ]
+                               }
+                            ],
+                            [
+                               "NL"
+                            ]
+                         ]
+                      ]
+                   },
+                   []
+                ],
+                [
+                   {
+                      "loopStart_1": 1,
+                      "child_0": [
+                         [
+                            {
+                               "StateName_Obj2": "MENUITEM"
+                            },
+                            [
+                               {
+                                  "_attributes_Obj0": [
+                                     [
+                                        "\"&Clear\"",
+                                        ","
+                                     ],
+                                     [
+                                        "ID_CLEAR",
+                                        null
+                                     ]
+                                  ]
+                               }
+                            ],
+                            [
+                               "NL"
+                            ]
+                         ]
+                      ]
+                   },
+                   [
+                      {
+                         "loopEnd_0": 0
+                      },
+                      {
+                         "loopEnd_1": 1
+                      }
+                   ]
+                ]
+             ]
+          ]
+       ],
+       "ENDING": "EOF"
+    }
+ }
