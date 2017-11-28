@@ -3,7 +3,8 @@
 // var pegimport = require('pegjs-import');
 var convert = require('xml-js');
 var fs = require('fs');
-var abstractModel, structuralModel, presInterModel, states_JSON, attributes_JSON, RC_json, RC_Ob;
+var abstractModel, structuralModel, presInterModel, dir_JSON, states_JSON, attributes_JSON;
+var rcOb, rcOb_String;
 var state_Count = 0;
 var attributes_Count = 0;
 var loop_Count = 0;
@@ -13,39 +14,43 @@ var child_Count = 0;
 var loopStart, loopEnd;
 loopStart = 'loopStart_' + loopS_Count;
 loopEnd = 'loopEnd_' + loopE_Count;
+var attrArray = [];
+var finalAttrArray = [];
 
-fs.readFile("./Parsed_RC_TEST.json", function (err, data) {
+var readPathName = "./Parsed_RC_TEST.json";
+var fileText = "";
+var writePathName = "./Parsed_RC_TEST_MODEL.xml";
+
+var jsonData = fs.readFileSync(readPathName, 'utf8');
+var options = { ignoreComment: true, spaces: 4, compact: true };
+//var result = convert.json2xml(jsonData, options);
+//writeFiles(writePathName, result);
+
+fs.readFile(readPathName, function (err, data) {
     if (err) { console.log(err); }
-    else {
-        RC_json = data.toString();
-        RC_Ob = JSON.parse(RC_json);
-        formatting(RC_Ob);
-    }
+    rcOb_String = data.toString();
+    rcOb = JSON.parse(rcOb_String);
+    formatting(rcOb);
 })
-var jsonk = fs.readFileSync('./Parsed_RC_TEST.json', 'utf8');
-var options = {ignoreComment: true, spaces: 4};
-var resultXML = convert.json2xml(jsonk, options);
-console.log(resultXML);
-// function writeXML(resultXML){
-//     fs.writeFile("./Parsed_RC_TEST_MODEL.xml", resultXML, (err) => {
-//         if (err) {
-//             console.error(err);
-//             return;
-//         };
-//     });
-// }
+function writeFiles(pathName, fileText) {
+    //clear the file first
+    fs.writeFile(pathName, "", (err) => {
+        if (err) {
+            console.error(err);
+        }
+        //write new data to clean file
+        fs.writeFile(pathName, fileText, (err) => {
+            if (err) {
+                console.error(err);
+            }
+        })
+    })
+}
 
-var json2xml = require('json2xml');
- 
-fs.readFile('./Parsed_RC_TEST.json', 'utf8', function read (err, data) {
-  if (err) console.log(err);
-  fs.writeFile('./Parsed_RC_TEST_MODEL.xml', json2xml(JSON.parse(data)));
-});
-
-function formatting(RC_Ob) {
-    for (var key in RC_Ob) {
+function formatting(rcOb) {
+    for (var key in rcOb) {
         if (key === "Parsed_RC") {
-            var rcAttObject = RC_Ob[key];
+            var rcAttObject = rcOb[key];
             for (var obj_type in rcAttObject) {
                 if (obj_type === "Directive_Obj") {
                     var dirAttObject = rcAttObject[obj_type];
@@ -54,7 +59,6 @@ function formatting(RC_Ob) {
                 if (obj_type === "States_Obj") {
                     var stateAttObj = rcAttObject[obj_type];
                     state_Formatting(stateAttObj);
-                    //   state_Formatting(eachState_Obj);
                 }
             }
         }
@@ -62,53 +66,175 @@ function formatting(RC_Ob) {
 }
 
 function dir_Formatting(dirAttObject) {
-    var key;
-    clean(dirAttObject);
-    removeNullValuesArray(dirAttObject);
+    var key_dir, singleDirObj, dirName, dirText, dirObjDetails;
     for (var i = 0; i < dirAttObject.length; i++) {
-        for (key in dirAttObject[i]) {
-            //   console.log(key + " = " + dirAttObject[i][key].Dir);
-            //var Directive_Obj = {}
-            //formattedJSON = {}
-            // dirAttObject_Val = dirAttObject[key];
+        dirName = 'Directive_' + i;
+        singleDirObj = dirAttObject[i]
+        for (dirName in singleDirObj) {
+            dirObjDetails = singleDirObj[dirName];
+            for (key_dir in dirObjDetails) {
+                if (key_dir === 'Dir') {
+                    dir_JSON = { "Directive": {} }
+                   // console.log(dirObjDetails[key_dir]);
+                }
+                if (key_dir === '_text') {
+                    dir_JSON = { "Directive": {} }
+                   // console.log(dirObjDetails[key_dir]);
+                }
+            }
         }
     }
 }
 //gets the state object
 function getState() {
-    var state_Obj, stateName, finalState, key_state, y;
+    var state_Obj, stateName, finalState, key_state, y, stateIdentifier ;
     for (var j = 0; j < arguments.length; j++) {
         state_Obj = arguments[j];
         childName = 'child_' + child_Count;
         stateName = 'StateName_Obj' + state_Count;
         for (var k = 0; k < state_Obj.length; k++) {
             finalState = state_Obj[k];
-            for (var x = 0; x < finalState.length; x++) {
-                y = finalState[x];
-                for (key_state in y) {
-                    //console.log(y[key_state]);
+            // for (var x = 0; x < finalState.length; x++) {
+            //     y = finalState[x];
+                for (key_state in finalState) {                    
                     if (key_state === stateName) {
-                        structuralState = y[key_state];
-                        structuralModel = {structuralModel: structuralState}
-                        //  stateIdentifier = finalState[stateName];
-                        //  setState(stateIdentifier);    
-                        console.log(structuralModel.toString());
-                        state_Count++;
+                         stateIdentifier = finalState[key_state];
+                         setState(stateIdentifier);    
+                        // console.log(finalState[key_state]);                        state_Count++;
                     }
                 }
-                if (x === 1) {
-                   // getAttributes(y);
+                if (k === 1) {
+                    getAttributes(finalState);
                 }
-            } if (k === 1) {
+            } if (j === 1) {
                 //loop_Obj = attrs_Obj[key_att];
                 //console.log(finalState);    
-                getLoop(finalState);
+                // getLoop(state_Obj);
             }
 
         }
 
     }
+//}
+
+function getIdealStateObj(idealStateName) {
+    readPathName = './TEMPLATE_RC_tags.json'
+    fs.readFile(readPathName, function (err, data) {
+        if (err) { console.log(err); }
+        var rcOb_String = data.toString();
+        var rcTemplate_Obj = JSON.parse(rcOb_String);
+        var key_rc, key_idealState;
+        for (key_rc in rcTemplate_Obj) {           
+            if (key_rc === 'rc') {
+                var idealStates = rcTemplate_Obj[key_rc];
+                for (key_idealState in idealStates) {
+                    if (key_idealState === idealStateName) {
+                        return idealStates[key_idealState];
+                    }
+                }
+            }
+        }
+    })
 }
+function setAttributes(finalAttrArray) {
+    var stateAttributes = [];
+    var formattedString = '';
+    var flag = 0;
+    var getStringStart = 0, getStringEnd = 0;
+    var countStrings
+    finalAttrArray = [ '8', '"MS', 'Shell', 'Shell', 'Dlg"', '0', '0', '0x1' , '"Hey', 'Second', 'Test"' ]
+    for (var arr = 0; arr < finalAttrArray.length; arr++) {
+        if (finalAttrArray[arr].includes('\"')){
+            flag ++;                
+            if (flag === 1) {
+                getStringStart = arr;                
+            }
+            if (flag === 2) {
+                getStringEnd = arr;
+                flag = 0;
+            }
+            if (getStringEnd !== undefined && getStringEnd > getStringStart){
+                for( var jS = getStringStart; jS <= getStringEnd; jS++){
+                    formattedString = formattedString.concat(finalAttrArray[jS]);
+                }            
+                stateAttributes.push(formattedString)
+                formattedString = ''                            
+            }
+         }
+         else if (flag!== 1) {
+             stateAttributes.push(finalAttrArray[arr])            
+         }
+    }
+     console.log(stateAttributes);                
+}
+
+function setState(stateIdentifier) {
+    var idealState = getIdealStateObj(stateIdentifier);
+    var stateAttributes = [];
+    var newVal, arrVal; 
+    function setAttributes(finalAttrArray){
+        var stateAttributes = [];
+        
+        console.log(finalAttrArray);
+        for(var arr = 0; arr<finalAttrArray.length; arr++){
+            if(finalAttrArray[arr].includes("/")){
+                
+    
+    
+                stateAttributes.push(finalAttrArray[arr])
+            }else{
+                stateAttributes.push(finalAttrArray[arr])
+            }
+        }
+    }
+    if (stateIdentifier === 'FONT') {
+        var key_Font;
+        
+        for (key_Font in idealState) {
+            if (key_Font === 'pointsize') {
+
+            }
+            if (key_Font === 'pointsize') {
+                
+            }
+            if (key_Font === 'pointsize') {
+                
+            }
+            if (key_Font === 'pointsize') {
+                
+            }
+        }
+    }
+    if (stateIdentifier === 'include') {
+
+    }
+    if (stateIdentifier === 'define') {
+
+    }
+    if (stateIdentifier === 'define') {
+
+    }
+    if (stateIdentifier === 'ShapesCursor') {
+        // formatJSON(model_RC_JSON);
+    }
+    if (stateIdentifier === 'ShapesIcon') {
+
+    }
+    if (stateIdentifier === 'ShapesMenu') {
+
+    }
+    if (stateIdentifier === 'POPUP') {
+
+    }
+    if (stateIdentifier === 'MENUITEM') {
+
+    }
+    if (stateIdentifier === 'LTEXT') {
+
+    }
+    
+}
+
 function getAttributes(y) {
     var attrs_Obj, attributeName, key_att;
     var attr_Count = 0;
@@ -118,17 +244,19 @@ function getAttributes(y) {
         for (key_att in attrs_Obj) {
             if (key_att === attributeName) {
                 if ((attrs_Obj[key_att]) !== null) {
-                    getDataFromJSONArray(attrs_Obj[key_att]);
+                    attrArray = getDataFromJSONArray(attrs_Obj[key_att]);
                 }
                 attr_Count++;
             }
-        }
-    }
+        }    
+        finalAttrArray = finalAttrArray.concat(attrArray);     
+    }setAttributes(finalAttrArray);
 }
 // for 2 leveled arrays
 function getDataFromJSONArray() {
     var eachElement, finalData;
     var y, fData1, fData2;
+    attrArray = [];
     for (y = 0; y < arguments.length; y++) {
         eachElement = arguments[y];
         for (fData1 = 0; fData1 < eachElement.length; fData1++) {
@@ -139,12 +267,15 @@ function getDataFromJSONArray() {
                     if (finalData2 === '|') {
                         console.log('OR Styling');
                     } else {
-                        console.log(finalData2);
+                        attrArray.push(finalData2)
+                       // console.log(finalData2);
+                        
                     }
                 }
             }
         }
-    }
+    }                        
+    return attrArray;    
 }
 
 function getLoop(finalState) {
@@ -154,15 +285,15 @@ function getLoop(finalState) {
         loop_Obj = finalState[ch];
         for (var l = 0; l < loop_Obj.length; l++) {
             child_Obj = loop_Obj[l];
-            // console.log(child_Obj);
+            console.log(child_Obj);
             for (key_loop in child_Obj) {
                 if (key_loop === loopStart) {
-                    //console.log('inloop' + loopStart);
+                    console.log('inloop' + loopStart);
                     //getLoopStart(attrs_Obj[key_att]);
                     loopS_Count++;
                 }
                 if (key_loop === childName) {
-                    //console.log('inchild' + childName);
+                    console.log('inchild' + childName);
                     var children = child_Obj[key_loop];
                     getState(children);
                     child_Count++;
@@ -178,191 +309,153 @@ function getLoop(finalState) {
                 }
 
             }
-        }if(ch === 1){
+        } if (ch === 1) {
             console.log(loop_Obj);
 
         }
     }
 }
-    //function gets values param1/param2/.. from array object passed.
-    function state_Formatting(stateAttObj) {
-        var key_state, key_att, states_Obj, loop_Obj, attrs_Obj, x, j, i, k;
-        var stateName, attributeName, childName, key_child, child_Obj, key_loop;
-        var stateIdentifier;
-        // var ob = clean(stateAttObj);
-        // var cleanStateAttObj = removeNullValuesArray(ob);
-        for (i = 0; i < stateAttObj.length; i++) {
-            states_Obj = stateAttObj[i];
-            for (j = 0; j < states_Obj.length; j++) {
-                state_Obj = states_Obj[j];                
-                getState(state_Obj);
-                
-                stateName = 'StateName_Obj' + i;
-                if (j === 1) {
-                    //loop_Obj = attrs_Obj[key_att];
-                    //  console.log(loop_Obj);    
-                    for (var ch = 0; ch < state_Obj.length; ch++) {
-                        loop_Obj = state_Obj[ch];
-                        for (var l = 0; l < loop_Obj.length; l++) {
-                            child_Obj = loop_Obj[l];
-                            for (key_loop in child_Obj) {
-                                if (key_loop === loopStart) {
-                                    //console.log('inloop' + loopStart);
-                                    //getLoopStart(attrs_Obj[key_att]);
-                                    loopS_Count++;
-                                }
-                                if (child_Obj === childName) {
-                                    //console.log('inchild' + childName);
-                                    //    getLoopStart(child_Obj[child_Obj]);
-                                    child_Count++;
-                                }
+//function gets values param1/param2/.. from array object passed.
+function state_Formatting(stateAttObj) {
+    var key_state, key_att, states_Obj, loop_Obj, attrs_Obj, x, j, i, k;
+    var stateName, attributeName, childName, key_child, child_Obj, key_loop;
+   // var stateIdentifier;
+    // var ob = clean(stateAttObj);
+    // var cleanStateAttObj = removeNullValuesArray(ob);
+    for (i = 0; i < stateAttObj.length; i++) {
+        states_Obj = stateAttObj[i];
+        for (j = 0; j < states_Obj.length; j++) {
+            state_Obj = states_Obj[j];
+            getState(state_Obj);
+            stateName = 'StateName_Obj' + i;
+            if (j === 1) {
+                //loop_Obj = attrs_Obj[key_att];
+                //  console.log(loop_Obj);    
+                for (var ch = 0; ch < state_Obj.length; ch++) {
+                    loop_Obj = state_Obj[ch];
+                    for (var l = 0; l < loop_Obj.length; l++) {
+                        child_Obj = loop_Obj[l];
+                        for (key_loop in child_Obj) {
+                            if (key_loop === loopStart) {
+                                //console.log('inloop' + loopStart);
+                                //getLoopStart(attrs_Obj[key_att]);
+                                loopS_Count++;
+                            }
+                            if (child_Obj === childName) {
+                                //console.log('inchild' + childName);
+                                //    getLoopStart(child_Obj[child_Obj]);
+                                child_Count++;
                             }
                         }
                     }
                 }
+            }
 
-                for (k = 0; k < state_Obj.length; k++) {
-                    finalState = state_Obj[k];
-                    for (key_state in finalState) {
-                        if (key_state === stateName) {
-                            //  stateIdentifier = finalState[stateName];
-                            //  setState(stateIdentifier);    
-                            //  console.log(finalState[stateName]);
-                        }
-                        // if (key_state === loop_Start) {
-                        //   //  child_Obj = finalState[key_state];
-                        //     //    getLoopStart();
-                        // } else {
-                        //     for (var ls = 0; ls < finalState.length; ls++) {
-                        //         child_Obj = finalState[ls];
-                        //         for (key_child in child_Obj) {
-                        //             if (key_child === 'loopStart_0') {
-                        //                 //    console.log('loop0');
-                        //                 loopS_Count++;
-                        //             }
-                        //             if (key_child === 'child_0') {
-                        //                 //    console.log('child_0');
-
-                        //             }
-                        //         }
-                        //     }
-                        // }
+            for (k = 0; k < state_Obj.length; k++) {
+                finalState = state_Obj[k];
+                for (key_state in finalState) {
+                    if (key_state === stateName) {
+                        //  stateIdentifier = finalState[stateName];
+                        //  setState(stateIdentifier);    
+                        //  console.log(finalState[stateName]);
                     }
-                    // if (k === 1) {
-                    //     getAttributes(finalState);
-                    //     for (x = 0; x < finalState.length; x++) {
-                    //         attrs_Obj = finalState[x];
-                    //         attributeName = '_attributes_Obj' + x;
-                    //         for (key_att in attrs_Obj) {
-                    //             if (key_att === attributeName) {
-                    //                 getDataFromJSONArray(attrs_Obj[key_att]);
+                    // if (key_state === loop_Start) {
+                    //   //  child_Obj = finalState[key_state];
+                    //     //    getLoopStart();
+                    // } else {
+                    //     for (var ls = 0; ls < finalState.length; ls++) {
+                    //         child_Obj = finalState[ls];
+                    //         for (key_child in child_Obj) {
+                    //             if (key_child === 'loopStart_0') {
+                    //                 //    console.log('loop0');
+                    //                 loopS_Count++;
+                    //             }
+                    //             if (key_child === 'child_0') {
+                    //                 //    console.log('child_0');
+
                     //             }
                     //         }
                     //     }
                     // }
-                    if (k === 2) {
-                        for (key_state in finalState) {
-                            if (finalState[key_state] === "NL") {
-                                //    console.log('NL hey');
-                            }
+                }
+                // if (k === 1) {
+                //     getAttributes(finalState);
+                //     for (x = 0; x < finalState.length; x++) {
+                //         attrs_Obj = finalState[x];
+                //         attributeName = '_attributes_Obj' + x;
+                //         for (key_att in attrs_Obj) {
+                //             if (key_att === attributeName) {
+                //                 getDataFromJSONArray(attrs_Obj[key_att]);
+                //             }
+                //         }
+                //     }
+                // }
+                if (k === 2) {
+                    for (key_state in finalState) {
+                        if (finalState[key_state] === "NL") {
+                            //    console.log('NL hey');
                         }
                     }
-
                 }
-            }
 
-        }
-
-        //  console.log(stateName + "*****" + attributeName + "*****" + state_Obj.length );
-    }   //    return state_Obj;
-
-
-    function arrayLooping() {
-        var a, b;
-        for (a = 0; a < arguments.length; a++) {
-            for (b in arguments[a]) {
-                getIsPresent(b, arguments[a]);
             }
         }
-    }
-
-    function getIsPresent() {
 
     }
 
-    function setState() {
-        if (arguments === 'ShapesCursor') {
-            // formatJSON(model_RC_JSON);
-        }
-        if (arguments === 'ShapesIcon') {
+    //  console.log(stateName + "*****" + attributeName + "*****" + state_Obj.length );
+}   //    return state_Obj;
 
-        }
-        if (arguments === 'ShapesMenu') {
-
-        }
-        if (arguments === 'POPUP') {
-
-        }
-        if (arguments === 'MENUITEM') {
-
-        }
-        if (arguments === 'LTEXT') {
-
-        }
-    }
-
-    //send the data for func loopStart
-    function getLoopStart() {
-        var k, fData1, fData2, loop_obj, childName, loopName;
-        for (k = 0; k < arguments.length; k++) {
-            loop_obj = arguments[k];
-            for (fData1 in loop_obj) {
-                eachElement = loop_obj[fData1];
-                loopName = 'loopStart_' + loopS_Count;
-                childName = 'child_' + child_Count++;
-                if (eachElement === loopName) {
-                    console.log(loopName);
-                    loopS_Count++;
-                }
-                if (eachElement === childName) {
-                    child_Obj = eachElement[fData1];
-                    console.log(childName);
-                    child_Count++;
-                }
+//send the data for func loopStart
+function getLoopStart() {
+    var k, fData1, fData2, loop_obj, childName, loopName;
+    for (k = 0; k < arguments.length; k++) {
+        loop_obj = arguments[k];
+        for (fData1 in loop_obj) {
+            eachElement = loop_obj[fData1];
+            loopName = 'loopStart_' + loopS_Count;
+            childName = 'child_' + child_Count++;
+            if (eachElement === loopName) {
+                console.log(loopName);
+                loopS_Count++;
+            }
+            if (eachElement === childName) {
+                child_Obj = eachElement[fData1];
+                console.log(childName);
+                child_Count++;
             }
         }
     }
+}
 
-
-
-
-    //remove remove all falsy values: undefined, null, 0, false, NaN and "" (empty string)
-    function removeNullValuesArray(actual) {
-        var newArray = new Array();
-        for (var i = 0; i < actual.length; i++) {
-            if (actual[i]) {
-                newArray.push(actual[i]);
-            }
+//remove remove all falsy values: undefined, null, 0, false, NaN and "" (empty string)
+function removeNullValuesArray(actual) {
+    var newArray = new Array();
+    for (var i = 0; i < actual.length; i++) {
+        if (actual[i]) {
+            newArray.push(actual[i]);
         }
-        return newArray;
     }
+    return newArray;
+}
 
-    //used for removing null objects if any
-    function clean(RC_Ob) {
-        for (var propName in RC_Ob) {
-            if (RC_Ob[propName] === null || RC_Ob[propName] === undefined) {
-                delete RC_Ob[propName];
-            }
+//used for removing null objects if any
+function clean(RC_Ob) {
+    for (var propName in RC_Ob) {
+        if (RC_Ob[propName] === null || RC_Ob[propName] === undefined) {
+            delete RC_Ob[propName];
         }
-        return RC_Ob;
     }
-    function returnArray() {
-        var obj;
-        for (var a = 0; a < arguments.length; a++) {
-            obj = arguments[a];
-        }
-
-    }
+    return RC_Ob;
+}
+function readJSON(readPathName) {
+    fs.readFile(readPathName, function (err, data) {
+        if (err) { console.log(err); }
+        var rcOb_String = data.toString();
+        var rcTemplate_Obj = JSON.parse(rcOb_String);
+        return rcTemplate_Obj;                    
+    })
+}
 
 /*parser = pegimport.buildParser('./RC_Grammer.peg');
 content = parser.parse(RC_content);
@@ -374,29 +467,3 @@ console.log(content); */
 //         console.log(RC_content);
 //     }
 // })
-
-/*
-{
-    var dirCount = 0, stCount = 0, data = {};
-    var nameArray = new Array(), valuesArray = new Array();
-    var nA = "", vA = "";
-    function setData() {
-        // if (d) {
-        //     dirCount++ ;
-        //     { "directive":{ "d": d.join(""), "val":v.join("") } }
-        // }
-        // if (st_name){
-        stCount++;
-        function createKeys(stCount) {
-            name = "name" + stCount;
-            values = "values" + stCount;
-        }
-        nameArray[stCount] = st_name1.join("");
-        valuesArray[stCount] = [st_val1.join(""), st_val2.join("")];
-        nA = nameArray[stCount]
-        vA = valuesArray[stCount]
-        data: { name: nameArray };
-    }
-    return data;
-}*/
-
