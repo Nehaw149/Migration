@@ -1,30 +1,166 @@
 {
-    "Window": {
-        "Title": "",
-        "Height": "",
-        "Width": ""
-    },
-    "TextBlock": "",
-    "Button": {
-        "HorizontalAlignment": "",
-        "VerticalAlignment": "",
-        "_content": ""
-    },
-    "Label": {
-        "_content": "",
-        "FontWeight": ""
-    },
-    "CheckBox": {
-        "IsChecked": false,
-        "_innerHTML": ""
-    },
-    "RadioButton": {
-        "GroupName": "",
-        "IsChecked": false,
-        "_innerHTML": ""
-    },
-    "PasswordBox": "",
-    "StackPanel": {
-        "Margin": ""
+    "xaml": {
+        "Elements": {
+            "Button": {
+                "idm": 1,
+                "properties": {
+                    "Content":"",
+                    "IsEnabled": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                },
+                "events": {
+                    "Click": ""
+                }
+            },
+            "CheckBox": {
+                "idm": 2,
+                "properties": {
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":"",
+                    "IsChecked": "",
+                    "IsThreeState": "",
+                    "Name": ""
+                },
+                "events": {
+                    "Checked": "",
+                    "Unchecked": ""
+                }
+            },
+            "DockPanel": {
+                "idm": 3,
+                "properties": {
+                    "Dock": "",
+                    "Orientation": "",
+                    "LastChildFill": ""
+                }
+            },
+            "Image": {
+                "idm": 4,
+                "properties": {
+                    "Source": ""
+                }
+            },
+            "Label": {
+                "idm": 5,
+                "properties": {
+                    "Content": "",
+                    "Target": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                },
+                "_text": ""
+            },
+            "PasswordBox": {
+                "idm": 6,
+                "properties": {
+                    "PasswordChar": "",
+                    "MaxLength": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                },
+                "events": {
+                    "Paste": ""
+                }
+            },
+            "RadioButton": {
+                "idm": 7,
+                "properties": {
+                    "GroupName": "",
+                    "IsChecked": "",
+                    "Content": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                },
+                "events": {
+                    "Checked": "",
+                    "Unchecked": ""
+                }
+            },
+            "StackPanel": {
+                "idm": 8,
+                "properties": {
+                    "LastChildFill": "",
+                    "Orientation": ""
+                }
+            },
+            "TextBlock": {
+                "idm": 9,
+                "properties": {
+                    "Text":"",
+                    "TextWrapping": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                }
+            },
+            "TextBox": {
+                "idm": 10,
+                "properties": {
+                    "Name": "",
+                    "Text": "",
+                    "AcceptsReturn": "",
+                    "TextWrapping": "",
+                    "SpellCheck.IsEnabled": "",
+                    "IsReadOnly": "",
+                    "FontSize": "",
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                }
+            },
+            "Window": {
+                "idm": 11,
+                "properties": {
+                    "x:Class": "",
+                    "xmlns": "",
+                    "xmlns:x": "",
+                    "Title": ""
+                },
+                "events": {
+                    "Closed": "",
+                    "ContentRendered": ""
+                }
+            }
+        },
+        "com_attr": {
+            "Height":"",
+            "Width":"",
+            "Margin":"",
+            "Name":"",
+            "HorizontalAlignment":"",
+            "VerticalAlignment":""
+        },
+        "com_events": {
+            "OnKeyDown":"",
+            "OnKeyUp":"",
+            "GotFocus":"",
+            "DragStarting":""
+        }
     }
 }
