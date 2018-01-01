@@ -3,7 +3,7 @@ var XAML_json, XAML_ob, template_XAML_json, template_XAML_ob, element_json, mode
 var winOb, dockOb, stackOb, buttonOb, labelOb, radioOb;
 var sequence = 0;
 
-fs.readFile('./Parsed_XAML1.json', 'utf-8', function (err, data) {
+fs.readFile('./Parsed_XAML2.json', 'utf-8', function (err, data) {
   if (err)
     console.log(err);
   XAML_json = data.toString();
@@ -14,60 +14,113 @@ fs.readFile('./Parsed_XAML1.json', 'utf-8', function (err, data) {
       console.log(err);
     template_XAML_json = data.toString();
     template_XAML_ob = JSON.parse(template_XAML_json);
-
-  formatXAML_window(XAML_ob, template_XAML_ob);
+    formatXAML_window(XAML_ob, template_XAML_ob);
   })
 })
+
 function formatXAML_window(XAMLob, templateXAMLob) {
-    for (var keys_XAML in XAMLob) {
-      if (keys_XAML === "Window") {
+  XAML_Object: for (var keys_XAML in XAMLob) {
+    elements:  for (var key_template in templateXAMLob.xaml.Elements) {
+      if (keys_XAML === key_template) {
         sequence++;
-        winOb = { win_Ob : templateXAMLob.xaml.Elements.Window }
-        winOb.seq = sequence 
+        var flag = 0
         var windowAttObject = XAMLob[keys_XAML];
         for (var key_win in windowAttObject) {
+          flag++
+          var childLen = key_win.length
+          //  console.log(childLen);
+          var childLen_Count = childLen
+          var win_atts_attsObj = windowAttObject[key_win];
           if (key_win === "_attributes") {
-            var win_atts_attsObj = windowAttObject[key_win];
+            childLen_Count--
+            winOb = { [keys_XAML]: { "_attributes": templateXAMLob.xaml.Elements[keys_XAML] } }
+            winOb[keys_XAML]._attributes.seq = sequence
+            
             for (var win_attr in win_atts_attsObj) {
-              if (win_attr === "x:Class") {
-                var Class = win_atts_attsObj[win_attr];
-                winOb["x:Class"] = Class
+              idm:  for (var key_winOb_idm in templateXAMLob.xaml.idm) {
+                //idm
+                if (win_attr === key_winOb_idm) {
+                  var winOb_idm = win_atts_attsObj[win_attr];
+                  winOb[keys_XAML]._attributes._text[win_attr] = winOb_idm
+                }else{
+                  break idm;
+                }
+                
               }
-              if (win_attr === "xmlns") {
-                var xmlns = win_atts_attsObj[win_attr];
-                winOb["xmlns"] = xmlns
+              properties: for (var key_winOb_prop in templateXAMLob.xaml.Elements[keys_XAML].properties) {
+                //properties
+                if (win_attr === key_winOb_prop) {
+                  var winOb_prop = win_atts_attsObj[win_attr];
+                  winOb[keys_XAML]._attributes.properties[win_attr] = winOb_prop
+                }
               }
-              if (win_attr === "xmlns:x") {
-                var x = win_atts_attsObj[win_attr];
-                winOb["xmlns:x"] = xmlns
+              events: for (var key_winOb_events in templateXAMLob.xaml.Elements[keys_XAML].events) {
+                //events
+                if (win_attr === key_winOb_events) {
+                  var winOb_event = win_atts_attsObj[win_attr];
+                  winOb[keys_XAML]._attributes.events[win_attr] = winOb_event
+                }
               }
-              if (win_attr === "Title") {
-                var Title = win_atts_attsObj[win_attr];
-                winOb["Title"] = Title
+              com_attr: for (var key_winOb_com_attr in templateXAMLob.xaml.com_attr) {
+                if (win_attr === key_winOb_com_attr) {
+                  var winOb_com_attr = win_atts_attsObj[win_attr];
+                  winOb[keys_XAML]._attributes.properties[win_attr] = winOb_com_attr
+                }
+                
               }
-              if (win_attr === "Height") {
-                var Height = win_atts_attsObj[win_attr];
-                winOb["Height"] = Height
+              com_events: for (var key_winOb_com_events in templateXAMLob.xaml.com_events) {
+                if (win_attr === key_winOb_com_events) {
+                  var winOb_com_events = win_atts_attsObj[win_attr];
+                  winOb[keys_XAML]._attributes.events[win_attr] = winOb_com_events
+                }
+                
               }
-              if (win_attr === "Width") {
-                var Width = win_atts_attsObj[win_attr];
-                winOb["Width"] = Width
+            }
+            for (var key_clearVal1 in winOb) {
+              for (var key_clearVal2 in winOb[key_clearVal1]) {
+                for (var key_clearVal3 in winOb[key_clearVal1][key_clearVal2]) {
+                  for (var key_clearVal4 in winOb[key_clearVal1][key_clearVal2][key_clearVal3]) {
+                    var ob_attr1 = winOb[key_clearVal1][key_clearVal2][key_clearVal3]
+                    if (ob_attr1[key_clearVal4] === "") {
+                      delete ob_attr1[key_clearVal4]
+                    }
+                  }
+                }
+              }
+            }
+            console.log(JSON.stringify(winOb))
+          }
+          if(key_win === "_text"){
+            var winOb_text = win_atts_attsObj[key_win];
+
+          //  console.log(JSON.stringify(winOb_text))
+
+            for (var key_winOb_text in templateXAMLob.xaml.Elements[keys_XAML]._text) {
+              if (key_win === key_winOb_text) {
+              //  var winOb_text = win_atts_attsObj[key_win];
+                winOb[keys_XAML]._attributes._text[key_win] = winOb_text
               }
             }
           }
-          if (key_win === "DockPanel") {
-            var panel_Obj = windowAttObject[key_win];
-            formatXAML_DockPanel(panel_Obj);
+          if (key_win != "_attributes" && key_win!= "_text" && childLen_Count > 0) {
+            childLen_Count--
+            var parsedEleOb = windowAttObject
+            //  console.log(JSON.stringify(parsedEleOb) + key_win)
+            formatXAML_window(parsedEleOb, templateXAMLob)
           }
-          if (key_win === "StackPanel") {
-            var panel_Obj = windowAttObject[key_win];
-            formatXAML_StackPanel(panel_Obj);
-          }
+
         }
       }
-    }
-    console.log(JSON.stringify(winOb));
+    }    
+  }
+  //  console.log(JSON.stringify(winOb));
 }
+
+function error_outScoped() {
+  // TODO
+  console.log('ERROR: ELEMENTS OUT OF SCOPE.')
+}
+
 function formatXAML_StackPanel(stackPanel_Obj) {
   for (var key_stack in stackPanel_Obj) {
     if (key_stack === "_attributes") {
@@ -89,7 +142,7 @@ function formatXAML_StackPanel(stackPanel_Obj) {
   }
 }
 function formatXAML_DockPanel(dockPanel_Obj) {
-  dockOb = { dock_Ob : templateXAMLob.xaml.Elements.formatXAML_DockPanel }
+  dockOb = { dock_Ob: templateXAMLob.xaml.Elements.formatXAML_DockPanel }
 
   for (var key_dock in dockPanel_Obj) {
     if (key_dock === "_attributes") {

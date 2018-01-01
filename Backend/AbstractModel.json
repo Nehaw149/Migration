@@ -1,0 +1,22 @@
+{
+    "Window": {
+        "_attributes": {
+            "idm": 11,
+            "properties": {
+                "x:Class": "Thesis_XAML.MainWindow",
+                "xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                "xmlns:x": "http://schemas.microsoft.com/winfx/2006/xaml",
+                "Title": "MainWindow",
+                "Height": "300",
+                "Width": "350"
+            },
+            "events": {
+                "Closed": "",
+                "ContentRendered": ""
+            },
+            "seq": 1
+        },
+        "A":"",
+        "B":""
+    }
+}
