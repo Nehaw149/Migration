@@ -41,12 +41,18 @@
                     "Dock": "",
                     "Orientation": "",
                     "LastChildFill": ""
+                },
+                "events":{
+                    
                 }
             },
             "Image": {
                 "idm": 4,
                 "properties": {
                     "Source": ""
+                },
+                "events":{
+                    
                 }
             },
             "Label": {
@@ -60,6 +66,9 @@
                     "FontStyle":"",
                     "Foreground":"",
                     "Background":""
+                },
+                "events":{
+                    
                 },
                 "_text": ""
             },
@@ -102,6 +111,9 @@
                 "properties": {
                     "LastChildFill": "",
                     "Orientation": ""
+                },
+                "events":{
+                    
                 }
             },
             "TextBlock": {
@@ -115,6 +127,9 @@
                     "FontStyle":"",
                     "Foreground":"",
                     "Background":""
+                },
+                "events":{
+                    
                 }
             },
             "TextBox": {
@@ -132,6 +147,9 @@
                     "FontStyle":"",
                     "Foreground":"",
                     "Background":""
+                },
+                "events":{
+                    
                 }
             },
             "Window": {
@@ -149,6 +167,7 @@
             }
         },
         "com_attr": {
+            "DockPanel.Dock":"",
             "Height":"",
             "Width":"",
             "Margin":"",

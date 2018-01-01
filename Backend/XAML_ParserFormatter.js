@@ -1,14 +1,15 @@
 var util = require('util');
 var fs = require('fs');
 var convert = require('xml-js');
+var parseString = require('xml2js').parseString;
 
-var json_xmljs = fs.readFileSync('./Test2.xaml', 'utf8');
+var json_xmljs = fs.readFileSync('./XAML_Test1.xaml', 'utf8');
 var result1 = convert.xml2json(json_xmljs, { compact: true, spaces: 4 });
 console.log(result1);
 writeJSON(result1);
 
 function writeJSON(jsonOut) {
-    fs.writeFile("./Parsed_XAML.json", jsonOut, (err) => {
+    fs.writeFile("./Parsed_XAML1.json", jsonOut, (err) => {
         if (err) {
             console.error(err);
             return;
@@ -23,15 +24,15 @@ function writeJSON(jsonOut) {
 //     })
 // });
 
-function writeXML(resultXML){
-    fs.writeFile("./Parsed_RC_TEST_MODEL.xml", resultXML, (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        };
-    });
-}
-    // function clean(obj) {
+// function writeXML(resultXML){
+//     fs.writeFile("./Parsed_RC_TEST_MODEL.xml", resultXML, (err) => {
+//         if (err) {
+//             console.error(err);
+//             return;
+//         };
+//     });
+// }
+//     // function clean(obj) {
     //     for (var propName in obj) {
     //         if (obj[propName] === null || obj[propName] === undefined) {
     //             delete obj[propName];
