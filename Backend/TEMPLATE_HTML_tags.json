@@ -1,22 +1,37 @@
 {
     "html": {
-        "input": {
-            "type": [
-                "radio",
-                "text",
-                "submit",
-                "password",
-                "reset",
-                "checkbox",
-                "date"
-            ],
-            "value": "",
-            "name": ""
+        "Elements": {
+            "input": {
+                "type": [
+                    "radio",
+                    "text",
+                    "submit",
+                    "password",
+                    "reset",
+                    "checkbox",
+                    "date"
+                ],
+                "value": "",
+                "name": ""
+            },
+            "select": 123,
+            "option": "",
+            "textarea": "",
+            "button": "",
+            "label": ""
         },
-        "select": 123,
-        "option": "",
-        "textarea": "",
-        "button": "",
-        "label": ""
+        "com_attrs": {},
+        "com_events": {}
+    },
+    "css":{
+        "font-weight":"",
+        "font-family":"",
+        "font-style":"",
+        "font-size":"",
+        "color":"",
+        "text-align":["center","left","right"],
+        "background-color":"",
+        "disabled":""
+
     }
 }

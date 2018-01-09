@@ -3,19 +3,38 @@ var fs = require('fs');
 var convert = require('xml-js');
 var parseString = require('xml2js').parseString;
 
-var json_xmljs = fs.readFileSync('./XAML_Test1.xaml', 'utf8');
+var json_xmljs = fs.readFileSync('./XAML_Test2.xaml', 'utf8');
 var result1 = convert.xml2json(json_xmljs, { compact: true, spaces: 4 });
-console.log(result1);
 writeJSON(result1);
 
 function writeJSON(jsonOut) {
-    fs.writeFile("./Parsed_XAML1.json", jsonOut, (err) => {
+    fs.writeFile("./Parsed_XAML.json", jsonOut, (err) => {
         if (err) {
             console.error(err);
             return;
         };
     });
 }
+
+parseString(json_xmljs, {
+    tagNameProcessors: [nameToUpperCase]},
+    (err, result) => {
+        console.log(result)
+    });
+
+function nameToUpperCase(name) {
+    return name.toUpperCase();
+}
+
+// parseString(json_xmljs, {
+//     tagNameProcessors: [nameToUpperCase],
+//     attrNameProcessors: [nameToUpperCase],
+//     valueProcessors: [nameToUpperCase],
+//     attrValueProcessors: [nameToUpperCase]},
+//     (err, result) => {
+//         console.log(result)
+//     });
+
 // var resultXML, jsonTest;
 // var fileXML = fs.readFile('./Parsed_XAML.json', 'utf8', function (err, data) {
 //     parseString(data, { trim: true }, function (err, result) {
@@ -56,18 +75,3 @@ function writeJSON(jsonOut) {
     //         })();
     //     }
     // }
-
-
-/*parseString(xml, {
-  tagNameProcessors: [nameToUpperCase],
-  attrNameProcessors: [nameToUpperCase],
-  valueProcessors: [nameToUpperCase],
-  attrValueProcessors: [nameToUpperCase]},
-  (err, result) => {
-    // processed data 
-});
-function nameToUpperCase(name) {
-  return name.toUpperCase();
-}
-
-*/

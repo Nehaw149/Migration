@@ -104,7 +104,8 @@
                 "events": {
                     "Checked": "",
                     "Unchecked": ""
-                }
+                },
+                "_text": ""
             },
             "StackPanel": {
                 "idm": 8,
