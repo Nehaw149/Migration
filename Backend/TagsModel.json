@@ -1,0 +1,72 @@
+{
+    "1": {
+        "Window": {
+            "2": {
+                "DockPanel": {
+                    "3": {
+                        "Label" :
+                    }
+                },
+                "4": {
+                    "StackPanel": {
+                        "5": {
+                            "Label": {
+                                "seq": 5
+                            }
+                        }
+                    },
+                    "6": {
+                        "PasswordBox": {
+                            "seq": 6
+                        }
+                    }
+                },
+                "7": {
+                    "TextBlock": {
+                        "seq": 7
+                    }
+                }
+            },
+            "8": {
+                "RadioButton": {
+                    "seq": 9
+                }
+            }
+        },
+        "9": {
+            "RadioButton": {
+                "seq": 9
+            }
+        }
+    },
+    "10": {},
+    "11": {
+        "CheckBox": {
+            "seq": 11
+          }
+        },
+      "12": {
+    "Button": {
+        "seq": 12
+    }
+}
+}
+                
+}
+}
+},
+"13": {
+"Image": {
+"seq": 13
+}
+}
+}
+            "seq": 2
+}
+}
+}
+        "seq": 1
+}
+}
+}
+}

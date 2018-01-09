@@ -12,20 +12,14 @@
             "_attributes": {
                 "Margin": "10"
             },
-            "Label": [
-                {
-                    "_attributes": {
-                        "FontWeight": "Bold"
-                    },
-                    "_text": "Are you ready?"
-                },
+            "Label": 
                 {
                     "_attributes": {
                         "FontWeight": "Bold"
                     },
                     "_text": "Male or female?"
                 }
-            ],
+            ,
             "RadioButton": [
                 {
                     "_attributes": {
