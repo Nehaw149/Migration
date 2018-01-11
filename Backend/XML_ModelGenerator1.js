@@ -37,14 +37,12 @@ function formatXAML_window(XAMLob, migratedXAMLObj) {
         temp_events_Obj = templateXAMLob.xaml.Elements[keys_XAML].events;
         temp_text_Obj = templateXAMLob.xaml.Elements[keys_XAML];
         windowAttObject = XAMLob[keys_XAML];
-        tagsModel_Obj[sequence] = {}
-
 
         arrayAttr: for (var len = 0; len < windowAttObject.length; len++) {
-          if (len >= 0) {            
+          if (len >= 0) {
             // passing sequence number to setAttributes
             // passing the parent obj
-            setAttributes(windowAttObject[len], migratedXAMLObj, sequence)            
+            setAttributes(windowAttObject[len], migratedXAMLObj, sequence)
             sequence++
           }
           else {
@@ -55,7 +53,7 @@ function formatXAML_window(XAMLob, migratedXAMLObj) {
         // passing sequence number to setAttributes
         // passing the parent obj
         setAttributes(windowAttObject, migratedXAMLObj, sequence)
-        
+
         // added new argument to function -> sequence
         // added new argument to function -> migratedXAMLObj
         function setAttributes(windowAttObject, migratedXAMLObj, sequence) {
@@ -65,7 +63,7 @@ function formatXAML_window(XAMLob, migratedXAMLObj) {
           for (key_win in windowAttObject) {
             win_atts_Obj = windowAttObject[key_win];
             if (key_win === "_attributes") {
-              winOb = {[sequence]: [keys_XAML]}
+              winOb = { [sequence]: [keys_XAML] }
               winOb[sequence] = { [keys_XAML]: { "_attributes": templateXAMLob.xaml.Elements[keys_XAML] } }
               winOb[sequence][keys_XAML]._attributes.seq = sequence
 
@@ -130,7 +128,7 @@ function formatXAML_window(XAMLob, migratedXAMLObj) {
               }
             }
             // adding the object to migratedXAMLObj
-            if (key_win === "_attributes" || key_win === "_text"){
+            if (key_win === "_attributes" || key_win === "_text") {
               migratedXAMLObj[sequence] = winOb[sequence];
             }
             if (key_win != "_attributes" && key_win != "_text") {
@@ -138,9 +136,8 @@ function formatXAML_window(XAMLob, migratedXAMLObj) {
 
               // passed the parent obj to formatXAML_window where the child will be appended                
               formatXAML_window(parsedEleOb, migratedXAMLObj[sequence][keys_XAML])
-              
               break;
-            }              
+            }
           }
         }
       }

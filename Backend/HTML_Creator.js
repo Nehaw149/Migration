@@ -1,82 +1,139 @@
 var fs = require('fs');
-var html, js, css
-var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}
+var html, js, css, cui_html = '', cui_start = '', cui_end = '';
+var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}, html_JSON = {}
 var sequence = 0
-var key_XAML_Model = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '',
-  XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
+var key_XAML_Model = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '', key_temp_html = ''
+
+var startStr = '', endStr = ''
+
+XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
+XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('./XAML_Model_CUI_1.json', 'utf-8'));
+
+var cui_Obj = XAML_Model_CUI_Obj;
 var data = fs.readFileSync('./Migrated_template.html', 'utf8');
-fs.writeFileSync('./XAML_CUI.html', cui_html)
-fs.writeFileSync('./XAML_Migrated.html', html)
-fs.writeFileSync('./XAML_Migrated.js', js)
-fs.writeFileSync('./XAML_Migrated.css', css)
+var temp_xaml_html_Obj = JSON.parse(fs.readFileSync('./Template_HTML_XAML_MAPPING.json', 'utf8'));
 
-generate_Web(XAML_Model_Obj);
-
-function generate_Web(XAML_Model_Obj) {
+function generate_CUI(duplicateJSON, startStr, endStr){
   sequence++;
-
-  for (key_XAML_Model in XAML_Model_Obj) {
-    hey: if (key_XAML_Model == sequence) {
-      XAML_Obj = XAML_Model_Obj[key_XAML_Model]
-      console.log(key_XAML_Model + '***')
-      key_tag = ''
-
+  for (key_XAML_Model in duplicateJSON) {
+    if (key_XAML_Model == sequence) {
+      XAML_Obj = duplicateJSON[key_XAML_Model]
       if (isEmpty(XAML_Obj) === false) {
-        identifyTags(XAML_Obj)
+        XAML:for (key_tag in XAML_Obj) {
+          TEMP_Start:for (key_temp_html in temp_xaml_html_Obj) {
+            if(key_temp_html === key_tag){
+              //getting a single tag
+              var id_text = " id='" + sequence + "' ";
+              cui_start = JSON.stringify(temp_xaml_html_Obj[key_temp_html].Start)
+              cui_start = cui_start.replace(/["']/g, "");
+
+              if(cui_start.includes(" ")){
+                cui_start = cui_start.replace(" ", id_text )
+                startStr = startStr.concat(cui_start)
+              }              
+            break TEMP_Start             
+            }
+          }
+          child_Obj = XAML_Obj[key_tag]
+          if(isEmpty(XAML_Obj) != true){
+          //  console.log(JSON.stringify(child_Obj))
+            generate_CUI(child_Obj, startStr, endStr)
+          }
+          key_temp_html = ''
+          TEMP_End:for (key_temp_html in temp_xaml_html_Obj) {
+            if(key_temp_html === key_tag){
+              //getting a single tag
+              cui_end = JSON.stringify(temp_xaml_html_Obj[key_temp_html].End)           
+              endStr = endStr.concat(cui_end)
+            //  console.log(endStr)
+              break TEMP_End             
+            }
+          }
+        } 
       }
       else {
         sequence++
       }
-      function identifyTags(XAML_Obj) {
-        for (key_tag in XAML_Obj) {
-          if (key_tag === 'Window') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'DockPanel') {
-            console.log(key_tag)
-          }
-          if (key_tag === 'StackPanel') {
-            console.log(key_tag)
-          }
-          if (key_tag === 'Label') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'PasswordBox') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'TextBlock') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'RadioButton') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'CheckBox') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'Button') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'Image') {
-            console.log(key_tag)
-          }
-        }
-      }
-
-      for (key_XAML_tag in XAML_Obj) {
-        next_Obj = XAML_Obj[key_XAML_tag]
-        generate_Web(next_Obj)
-      }
     }
   }
+//  console.log(JSON.stringify(duplicateJSON))
+console.log(startStr)
+
+cui_html = startStr.concat(endStr)
+//console.log(cui_html)
+
 }
+generate_CUI(cui_Obj, startStr, endStr)
+
+
+// fs.writeFileSync('./XAML_CUI.html', cui_html)
+// fs.writeFileSync('./XAML_FUI.html', html)
+// fs.writeFileSync('./XAML_FUI.js', js)
+// fs.writeFileSync('./XAML_FUI.css', css)
+//generate_Web(XAML_Model_Obj);
+
+// function generate_Web(XAML_Model_Obj) {
+//   sequence++;
+
+//   for (key_XAML_Model in XAML_Model_Obj) {
+//     if (key_XAML_Model == sequence) {
+//       XAML_Obj = XAML_Model_Obj[key_XAML_Model]
+//       console.log(key_XAML_Model + '***')
+//       key_tag = ''
+//       cui_html = html;
+//       html = ''
+      
+//       if (isEmpty(XAML_Obj) === false) {
+//         identifyTags(XAML_Obj, sequence, html)
+//       }
+//       else {
+//         sequence++
+//       }
+
+//       for (key_XAML_tag in XAML_Obj) {
+//         next_Obj = XAML_Obj[key_XAML_tag]
+//         generate_Web(next_Obj)
+//       }
+//     }
+//   }
+//   console.log(JSON.stringify(html_JSON))
+// }
+
+// function identifyTags(XAML_Obj, sequence, html) {
+//   for (key_tag in XAML_Obj) {
+//     if (key_tag === 'Window') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     } 
+//     if (key_tag === 'DockPanel') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     }
+//     if (key_tag === 'StackPanel') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     }
+//     if (key_tag === 'Label') {
+//     } 
+//     if (key_tag === 'PasswordBox') {
+//     } 
+//     if (key_tag === 'TextBlock') {
+//     } 
+//     if (key_tag === 'RadioButton') {
+//     } 
+//     if (key_tag === 'CheckBox') {
+//     } 
+//     if (key_tag === 'Button') {
+//     } 
+//     if (key_tag === 'Image') {
+//     }
+//   }
+// }
 
 function isEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop))
-      console.log('false')
+    //  console.log('false')
     return false;
   }
-  console.log('true')
+//  console.log('true')
   return true;
 }
 

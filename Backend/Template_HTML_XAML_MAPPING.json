@@ -1,0 +1,46 @@
+{
+    "Window":{
+        "Start":"<div class='Window'>",
+        "End":"</div>"
+    },
+    "Dockpanel":{
+        "Start":"<div class='Dockpanel'>",
+        "End":"</div>"
+    },
+    "Label":{
+        "Start":"<label class='Label'>",
+        "End":"</label>"
+    },
+    "StackPanel":{
+        "Start":"<div class='StackPanel'>",
+        "End":"</div>"
+    },
+    "PasswordBox":{
+        "Start":"<input type='password' class='PasswordBox'>",
+        "End":""
+    },
+    "TextBlock":{
+        "Start":"<textarea class='TextBlock'>",
+        "End":"</textarea>"
+    },
+    "RadioButton":{
+        "Start":"<input type='radio' class='RadioButton'>",
+        "End":""
+    },
+    "CheckBox":{
+        "Start":"<input type='checkbox' class='CheckBox'>",
+        "End":""
+    },
+    "Button":{
+        "Start":"<button class='Button'>",
+        "End":"</button>"
+    },
+    "TextBox":{
+        "Start":"<input type='text' class='Button'>",
+        "End":""
+    },
+    "Image":{
+        "Start":"<img class='Image'>",
+        "End":""
+    }
+}
