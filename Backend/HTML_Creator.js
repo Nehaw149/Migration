@@ -1,84 +1,191 @@
 var fs = require('fs');
-var html, js, css
-var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}
+var html, js, css, cui_html = '', cui_start = '', cui_end = '';
+var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}, html_JSON = {}
 var sequence = 0
-var key_XAML_Model = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '',
-  XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
-var data = fs.readFileSync('./Migrated_template.html', 'utf8');
-fs.writeFileSync('./XAML_CUI.html', cui_html)
-fs.writeFileSync('./XAML_Migrated.html', html)
-fs.writeFileSync('./XAML_Migrated.js', js)
-fs.writeFileSync('./XAML_Migrated.css', css)
+var key_XAML_Model = '', key_Child = '',key_tag = '', key_XAML_tag = '', key_next_Obj = '', key_temp_html = ''
 
-generate_Web(XAML_Model_Obj);
+var startStr = '', mergedStr = ''
+var xaml_Tag_Stack = [], end_Tag_Stack = []
 
-function generate_Web(XAML_Model_Obj) {
-  sequence++;
+XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
+XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('./XAML_Model_CUI_1.json', 'utf-8'));
 
-  for (key_XAML_Model in XAML_Model_Obj) {
-    hey: if (key_XAML_Model == sequence) {
-      XAML_Obj = XAML_Model_Obj[key_XAML_Model]
-      console.log(key_XAML_Model + '***')
-      key_tag = ''
-
-      if (isEmpty(XAML_Obj) === false) {
-        identifyTags(XAML_Obj)
-      }
-      else {
-        sequence++
-      }
-      function identifyTags(XAML_Obj) {
-        for (key_tag in XAML_Obj) {
-          if (key_tag === 'Window') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'DockPanel') {
-            console.log(key_tag)
-          }
-          if (key_tag === 'StackPanel') {
-            console.log(key_tag)
-          }
-          if (key_tag === 'Label') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'PasswordBox') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'TextBlock') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'RadioButton') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'CheckBox') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'Button') {
-            console.log(key_tag)
-          } 
-          if (key_tag === 'Image') {
-            console.log(key_tag)
-          }
-        }
-      }
-
-      for (key_XAML_tag in XAML_Obj) {
-        next_Obj = XAML_Obj[key_XAML_tag]
-        generate_Web(next_Obj)
-      }
-    }
-  }
-}
+var cui_Obj = XAML_Model_CUI_Obj;
+var temp_xaml_html_Obj = JSON.parse(fs.readFileSync('./Template_HTML_XAML_MAPPING.json', 'utf8'));
 
 function isEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop))
-      console.log('false')
-    return false;
+      return false;
   }
-  console.log('true')
   return true;
 }
+
+function appendStart_tag(key_Tag_Str, start_Tag_Str) {
+  var cui_start = ''
+  if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
+    //getting a single tag
+    var id_text = " id='" + sequence + "' ";
+    cui_start = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].Start)
+    cui_start = cui_start.replace(/["]/g, "");
+
+    if (cui_start.includes(" ")) {
+      cui_start = cui_start.replace(" ", id_text)
+      start_Tag_Str = start_Tag_Str.concat(cui_start)
+    }
+  }
+  return start_Tag_Str
+}
+
+function appendEnd_tag(key_Tag_Str, start_Tag_Str) {
+  var cui_end = ''
+  if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
+    cui_end = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].End)
+    cui_end = cui_end.replace(/["]/g, "");
+    start_Tag_Str = start_Tag_Str.concat(cui_end)
+  }
+  return start_Tag_Str
+}
+
+function generate_CUI(element_Obj, startStr) {
+sequence++
+  seq: for (key_XAML_Model in element_Obj) {
+  
+    if (key_XAML_Model == sequence) {
+      XAML_Obj = element_Obj[key_XAML_Model]
+
+      if (isEmpty(XAML_Obj) === false) {
+        XAML: for (key_tag in XAML_Obj) {
+
+          //***THIS CAN BE MORE THAN ONE */
+
+          //store children in stack if not child compare seque with stack element
+
+          //take an array of all tags
+          child_Obj = XAML_Obj[key_tag]
+
+          //start tag call
+          if (temp_xaml_html_Obj.hasOwnProperty(key_tag)) {
+            //pop the last element out of the array
+            xaml_Tag_Stack.push(key_tag)
+            startStr = appendStart_tag(key_tag, startStr)
+          }
+
+          //Recursion *** CHILD Loop call
+          if(child_Obj){
+            for(key_Child in child_Obj){
+              if (isEmpty(child_Obj) != true) {
+                //console.log(JSON.stringify(child_Obj))
+                generate_CUI(child_Obj, startStr)
+              }
+            }
+          }
+
+          //end tag call
+          if (temp_xaml_html_Obj.hasOwnProperty(key_tag)) {
+            startStr = appendEnd_tag(key_tag, startStr)
+
+            //pop the last element out of the array
+            xaml_Tag_Stack.pop(key_tag)
+          //  console.log(startStr)
+          }
+
+            console.log(startStr)
+        }
+      }
+      else {
+        sequence++
+      }
+      sequence++
+    }
+    // else if(sequence === 8){
+    //   console.log('****')
+    // }
+  //  console.log(sequence)
+
+  }
+  return startStr
+}
+console.log(generate_CUI(cui_Obj, mergedStr))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//generate_CUI(cui_Obj, startStr, endStr)
+// fs.writeFileSync('./XAML_CUI.html', cui_html)
+// fs.writeFileSync('./XAML_FUI.html', html)
+// fs.writeFileSync('./XAML_FUI.js', js)
+// fs.writeFileSync('./XAML_FUI.css', css)
+//generate_Web(XAML_Model_Obj);
+
+// function generate_Web(XAML_Model_Obj) {
+//   sequence++;
+
+//   for (key_XAML_Model in XAML_Model_Obj) {
+//     if (key_XAML_Model == sequence) {
+//       XAML_Obj = XAML_Model_Obj[key_XAML_Model]
+//       console.log(key_XAML_Model + '***')
+//       key_tag = ''
+//       cui_html = html;
+//       html = ''
+
+//       if (isEmpty(XAML_Obj) === false) {
+//         identifyTags(XAML_Obj, sequence, html)
+//       }
+//       else {
+//         sequence++
+//       }
+
+//       for (key_XAML_tag in XAML_Obj) {
+//         next_Obj = XAML_Obj[key_XAML_tag]
+//         generate_Web(next_Obj)
+//       }
+//     }
+//   }
+//   console.log(JSON.stringify(html_JSON))
+// }
+
+// function identifyTags(XAML_Obj, sequence, html) {
+//   for (key_tag in XAML_Obj) {
+//     if (key_tag === 'Window') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     } 
+//     if (key_tag === 'DockPanel') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     }
+//     if (key_tag === 'StackPanel') {
+//       html = '<div id="'+sequence+'"></div>'            
+//     }
+//     if (key_tag === 'Label') {
+//     } 
+//     if (key_tag === 'PasswordBox') {
+//     } 
+//     if (key_tag === 'TextBlock') {
+//     } 
+//     if (key_tag === 'RadioButton') {
+//     } 
+//     if (key_tag === 'CheckBox') {
+//     } 
+//     if (key_tag === 'Button') {
+//     } 
+//     if (key_tag === 'Image') {
+//     }
+//   }
+// }
+
+
 
 // function formatXAML_StackPanel(stackPanel_Obj) {
 //   for (var key_stack in stackPanel_Obj) {
