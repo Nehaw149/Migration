@@ -1,0 +1,43 @@
+{
+    "Window": {
+        "_attributes": {
+            "x:Class": "WpfTutorialSamples.Panels.DockPanel",
+            "xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+            "xmlns:x": "http://schemas.microsoft.com/winfx/2006/xaml",
+            "Title": "DockPanel",
+            "Height": "250",
+            "Width": "250"
+        },
+        "DockPanel": {
+            "Button": [
+                {
+                    "_attributes": {
+                        "DockPanel.Dock": "Left"
+                    },
+                    "_text": "Left"
+                },
+                {
+                    "_attributes": {
+                        "DockPanel.Dock": "Top"
+                    },
+                    "_text": "Top"
+                },
+                {
+                    "_attributes": {
+                        "DockPanel.Dock": "Right"
+                    },
+                    "_text": "Right"
+                },
+                {
+                    "_attributes": {
+                        "DockPanel.Dock": "Bottom"
+                    },
+                    "_text": "Bottom"
+                },
+                {
+                    "_text": "Center"
+                }
+            ]
+        }
+    }
+}
