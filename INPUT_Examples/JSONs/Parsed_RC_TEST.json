@@ -1,0 +1,112 @@
+{
+    "Parsed_RC": {
+       "Directive_Obj": [],
+       "States_Obj": [
+          [
+             [
+                {
+                   "StateName_Obj0": "FONT"
+                },
+                [
+                   {
+                      "_attributes_Obj0": [
+                         [
+                            "8",
+                            ","
+                         ],
+                         [
+                            "\"MS",
+                            null
+                         ]
+                      ]
+                   },
+                   {
+                      "_attributes_Obj1": [
+                         [
+                            "Shell",
+                            null
+                         ]
+                      ]
+                   },
+                   {
+                      "_attributes_Obj2": [
+                         [
+                            "Dlg\"",
+                            ","
+                         ],
+                         [
+                            "0",
+                            ","
+                         ],
+                         [
+                            "0",
+                            ","
+                         ],
+                         [
+                            "0x1",
+                            null
+                         ]
+                      ] 
+                   }
+                ],
+                [
+                   "NL"
+                ]
+             ],
+             [
+                [
+                   {
+                      "loopStart_0": 0,
+                      "child_0": [
+                         [
+                            {
+                               "StateName_Obj1": "LTEXT"
+                            },
+                            [
+                               {
+                                  "_attributes_Obj0": [
+                                     [
+                                        "\"Color:\"",
+                                        ","
+                                     ],
+                                     [
+                                        "IDC_STATIC",
+                                        ","
+                                     ],
+                                     [
+                                        "7",
+                                        ","
+                                     ],
+                                     [
+                                        "8",
+                                        ","
+                                     ],
+                                     [
+                                        "62",
+                                        ","
+                                     ],
+                                     [
+                                        "9",
+                                        null
+                                     ]
+                                  ]
+                               }
+                            ],
+                            [
+                               "NL"
+                            ]
+                         ]
+                      ]
+                   },
+                   [
+                      {
+                         "loopEnd_0": 0
+                      }
+                   ]
+                ]
+             ]
+          ]
+       ],
+       "ENDING": "EOF"
+    }
+ }

@@ -1,0 +1,59 @@
+{
+    "directive": {
+        "1": {
+            "d": "include",
+            "val": "shapes.h"
+        },
+        "2": {
+            "d": "define",
+            "val": "_AFX_NO_SPLITTER_RESOURCES\r\n"
+        },
+        "3": {
+            "d": "pragma",
+            "val": "code_page(1252)\r\n"
+        }
+    },
+    "data": [
+        {
+            "name": "ShapesCursor",
+            "values": [
+                "CURSOR",
+                "SHAPES.CUR"
+            ],
+            "children": []
+        },
+        {
+            "name": "ShapesIcon",
+            "values": [
+                "CURSOR",
+                "SHAPES.ICO"
+            ],
+            "children": []
+        },
+        {
+            "name": "POPUP",
+            "values": [
+                "&Shape"
+            ],
+            "children": [
+                {
+                    "name": "MENUITEM",
+                    "values": [
+                        "&Clear",
+                        "ID_CLEAR"
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "MENUITEM",
+                    "values": [
+                        "&Rectangle",
+                        "ID_RECT"
+                    ],
+                    "children": []
+                }
+            ]
+        }
+    ]
+}
+

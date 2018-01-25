@@ -1,0 +1,116 @@
+{
+    "rc": {
+       "BLOCK": {
+          "idm":1,
+          "_text":""
+       },
+       "CAPTION":{
+          "idm":2,
+          "_text":""
+       },
+       "CHECKBOX": {
+          "idm":3,
+          "_text":"",
+          "id":"",
+          "x":"",
+          "y":"",
+          "width":"",
+          "height":""
+       },
+       "COMBOBOX": {
+          "idm":4,
+          "id":"",
+          "x":"",
+          "y":"",
+          "width":"",
+          "height":"",
+          "style":""
+       },
+       "CONTROL": {
+          "idm":5,
+          "controlText":"",
+          "id":"",
+          "className": {
+             "BUTTON":"",
+             "STATIC":"",
+             "EDIT":{
+                "EDITTEXT":{
+                   "id":"",
+                   "x":"",
+                   "y":"",
+                   "width":"",
+                   "height":""
+                }
+             },
+             "LISTBOX": {
+                "idm":6
+             },
+             "SCROLLBAR": {
+                "idm":7
+             }
+          }
+       },
+       "DEFPUSHBUTTON": {
+          "idm":8,
+          "_text":"",
+          "id":"",
+          "x":"",
+          "y":"",
+          "width":"",
+          "height":""
+       },
+       "DIRECTIVE": {
+          "idm":9,
+          "_text":""
+       },
+       "FONT": {
+          "idm":10,
+          "pointsize":"",
+          "typeface":"",
+          "weight":"",
+          "italic":"",
+          "charset":""
+       },
+       "LTEXT": {
+          "idm":11,
+          "_text":"",
+          "id":"",
+          "x":"",
+          "y":"",
+          "width":"",
+          "height":""
+       },
+       "MENU": {
+          "idm":12
+       },
+       "MENUITEM": {
+          "idm":13,
+          "_text":"",
+          "result":"",
+          "optionlist":[
+             "CHECKED",
+             "GRAYED",
+             "HELP",
+             "INACTIVE"
+          ]
+       },
+       "POPUP": {
+          "idm":14
+       },
+       "TEXTINCLUDE": {
+          "idm":15
+       },
+       "VALUE": {
+          "idm":16,
+          "Translation":"",
+          "Parameters":""
+       }
+    },
+    "styles": {
+       "idm":17,
+       "WS_TABSTOP":"",
+       "WS_VSCROLL":"",
+       "TOPMARGIN":"",
+       "BOTTOMMARGIN":""
+    }
+ }
