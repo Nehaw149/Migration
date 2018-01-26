@@ -12,11 +12,11 @@ var test_counter = 0
 //  Template_HTML_XAML_MAPPING_OBJ = {"Window":{"Start":"<div class='Window'>","End":"</div>"},"DockPanel":{"Start":"<div class='DockPanel'>","End":"</div>"},"Label":{"Start":"<label class='Label'>","End":"</label>"},"StackPanel":{"Start":"<div class='StackPanel'>","End":"</div>"},"PasswordBox":{"Start":"<input type='password' class='PasswordBox'>","End":""},"TextBlock":{"Start":"<textarea class='TextBlock'>","End":"</textarea>"},"RadioButton":{"Start":"<input type='radio' class='RadioButton'>","End":""},"CheckBox":{"Start":"<input type='checkbox' class='CheckBox'>","End":""},"Button":{"Start":"<button class='Button'>","End":"</button>"},"TextBox":{"Start":"<input type='text' class='Button'>","End":""},"Image":{"Start":"<img class='Image'>","End":""}}
 //  XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
 
-cui_html = fs.readFileSync('./Template_CUI_HTML.html', 'utf-8')
-polymer_cui_html = fs.readFileSync('./Template_Polymer_CUI_HTML.html', 'utf-8')
+cui_html = fs.readFileSync('../Templates/Template_CUI_HTML.html', 'utf-8')
+polymer_cui_html = fs.readFileSync('../Templates/Template_Polymer_CUI_HTML.html', 'utf-8')
 
-XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('./XAML_Model_CUI_1.json', 'utf-8'));
-Template_HTML_XAML_MAPPING_OBJ = JSON.parse(fs.readFileSync('./Template_HTML_XAML_MAPPING.json', 'utf-8'));
+XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('../Models/CUI/CUI_Model.json', 'utf-8'));
+Template_HTML_XAML_MAPPING_OBJ = JSON.parse(fs.readFileSync('../Templates/Template_HTML_XAML_MAPPING.json', 'utf-8'));
 
 var cui_Obj = XAML_Model_CUI_Obj;
 var temp_xaml_html_Obj = Template_HTML_XAML_MAPPING_OBJ
@@ -65,7 +65,7 @@ function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
             customElement_endTag = "</xaml-" + key_Tag_Str.toLowerCase() + ">"
             customElement_Stack.push(customElement_endTag)
             replacementStr = "'define-element'"
-            temp_Custom_Element = fs.readFileSync('./Template_Polymer_CustomElement.html', 'utf-8')
+            temp_Custom_Element = fs.readFileSync('../Templates/Template_Polymer_CustomElement.html', 'utf-8')
             temp_Custom_Element = temp_Custom_Element.replaceAll(replacementStr, id_text_Polymer)
 
             //  start tag in custom element
@@ -82,7 +82,7 @@ function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
 
             polymer_cui_start = "<" + "xaml-" + key_Tag_Str.toLowerCase() + " >"
             //  write the custom element
-            fileName = "./" + "xaml-" + key_Tag_Str.toLowerCase() + ".html"
+            fileName = "../Models/CUI/Polymer/CustomElements/" + "xaml-" + key_Tag_Str.toLowerCase() + ".html"
             fs.writeFileSync(fileName, temp_Custom_Element)
             polymer_import = "<link rel='import' href='" + fileName + "'>"
         }
@@ -172,7 +172,7 @@ function generate_CUI(element_Obj, xaml_Tag_Stack, Seq_Stack) {
         }
         else {
             console.log('here')
-            console.log('popped' + stack_Obj.pop())
+        //    console.log('popped' + stack_Obj.pop())
         }
     }
 }
@@ -183,10 +183,10 @@ String.prototype.splice = function (idx, rem, str) {
 }
 
 var append_at_html_index = cui_html.indexOf("Mig-Proj'>");
-fs.writeFileSync("./Models/CUI/CUI_HTML/CUI_Model_HTML.html", cui_html.splice((append_at_html_index + 10), 0, startStr))
+fs.writeFileSync("../Models/CUI/HTML/CUI_Model_HTML.html", cui_html.splice((append_at_html_index + 10), 0, startStr))
 
 var append_at_polymer_html_index = polymer_cui_html.indexOf("Mig-Proj'>");
 polymer_cui_html = polymer_cui_html.splice((append_at_polymer_html_index + 10), 0, polymerStr)
 append_at_polymer_html_index = polymer_cui_html.indexOf("<head>");
 polymer_cui_html = polymer_cui_html.splice((append_at_polymer_html_index + 6), 0, polymerImportStr)
-fs.writeFileSync("./Models/CUI/CUI_Polymer/CUI_Model_Polymer_HTML.html", polymer_cui_html)
+fs.writeFileSync("../Models/CUI/Polymer/CUI_Model_Polymer_HTML.html", polymer_cui_html)

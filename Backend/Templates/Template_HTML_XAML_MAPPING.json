@@ -1,0 +1,123 @@
+{
+    "Window": {
+        "HTML": {
+            "Start": "<div class='Window'>",
+            "End": "</div>"
+        },
+        "Polymer": {
+            "Start": "",
+            "End": "",
+            "Import": ""
+        }
+    },
+    "DockPanel": {
+        "HTML": {
+            "Start": "<div class='DockPanel'>",
+            "End": "</div>"
+        },
+        "Polymer": {
+            "Start": "<iron-flex-layout class='DockPanel'>",
+            "End": "</iron-flex-layout>",
+            "Import": "<link rel='import' href='bower_components/iron-flex-layout/iron-flex-layout.html'>"
+        }
+    },
+    "Label": {
+        "HTML": {
+            "Start": "<label class='Label'>",
+            "End": "</label>"
+        },
+        "Polymer": {
+            "Start": "<iron-label class='Label'>",
+            "End": "</iron-label>",
+            "Import": "<link rel='import' href='bower_components/iron-label/iron-label.html'>"
+        }
+    },
+    "StackPanel": {
+        "HTML": {
+            "Start": "<div class='StackPanel'>",
+            "End": "</div>"
+        },
+        "Polymer": {
+            "Start": "<iron-flex-layout class='StackPanel'>",
+            "End": "</iron-flex-layout>",
+            "Import": "<link rel='import' href='bower_components/iron-flex-layout/iron-flex-layout.html'>"
+        }
+    },
+    "PasswordBox": {
+        "HTML": {
+            "Start": "<input type='password' class='PasswordBox'>",
+            "End": ""
+        },
+        "Polymer": {
+            "Start": "<paper-input type='password' class='PasswordBox'>",
+            "End": "</paper-input>",
+            "Import": "<link rel='import' href='bower_components/paper-input/paper-input.html'>"
+        }
+    },
+    "TextBlock": {
+        "HTML": {
+            "Start": "<textarea class='TextBlock'>",
+            "End": "</textarea>"
+        },
+        "Polymer": {
+            "Start": "<paper-textarea class='TextBlock'>",
+            "End": "</paper-textarea>",
+            "Import": "<link rel='import' href='bower_components/paper-textarea/paper-textarea.html'>"
+        }
+    },
+    "RadioButton": {
+        "HTML": {
+            "Start": "<input type='radio' class='RadioButton'>",
+            "End": ""
+        },
+        "Polymer": {
+            "Start": "<paper-radio-group><paper-radio-button class='RadioButton'>",
+            "End": "</paper-radio-button></paper-radio-group>",
+            "Import": "<link rel='import' href='bower_components/paper-radio-button/paper-radio-button.html'><link rel='import' href='bower_components/paper-radio-group/paper-radio-group.html'>"
+        }
+    },
+    "CheckBox": {
+        "HTML": {
+            "Start": "<input type='checkbox' class='CheckBox'>",
+            "End": ""
+        },
+        "Polymer": {
+            "Start": "<paper-checkbox class='CheckBox'>",
+            "End": "</paper-checkbox>",
+            "Import": "<link rel='import' href='bower_components/paper-checkbox/paper-checkbox.html'>"
+        }
+    },
+    "Button": {
+        "HTML": {
+            "Start": "<button class='Button'>",
+            "End": "</button>"
+        },
+        "Polymer": {
+            "Start": "<paper-button class='Button'>",
+            "End": "</paper-button>",
+            "Import": "<link rel='import' href='bower_components/paper-button/paper-button.html'>"
+        }
+    },
+    "TextBox": {
+        "HTML": {
+            "Start": "<input type='text' class='TextBox'>",
+            "End": ""
+        },
+        "Polymer": {
+            "Start": "<paper-input class='TextBox'>",
+            "End": "</paper-input>",
+            "Import": "<link rel='import' href='bower_components/paper-input/paper-input.html'>"
+        }
+    },
+    "Image": {
+        "HTML": {
+            "Start": "<img class='Image'>",
+            "End": ""
+        },
+        "Polymer": {
+            "Start": "<iron-image class='Image'>",
+            "End": "</iron-image>",
+            "Import": "<link rel='import' href='bower_components/iron-image/iron-image.html'>"
+        }
+    }
+}

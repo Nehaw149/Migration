@@ -1,0 +1,40 @@
+<1>
+    <Window idm="11" properties="[object Object]" events="[object Object]" seq="1">
+        <2>
+            <DockPanel idm="3" properties="[object Object]" events="[object Object]" seq="2">
+                <3>
+                    <Label idm="5" properties="[object Object]" events="[object Object]" _text="Heading" seq="5"/>
+                </3>
+                <4>
+                    <StackPanel idm="8" properties="[object Object]" events="[object Object]" seq="4">
+                        <5>
+                            <Label idm="5" properties="[object Object]" events="[object Object]" _text="Heading" seq="5"/>
+                        </5>
+                        <6>
+                            <PasswordBox idm="6" properties="[object Object]" events="[object Object]" seq="6"/>
+                        </6>
+                        <7>
+                            <TextBlock idm="9" properties="[object Object]" events="[object Object]" seq="7"/>
+                        </7>
+                        <8>
+                            <RadioButton idm="7" properties="[object Object]" events="[object Object]" _text="" seq="9"/>
+                        </8>
+                        <9>
+                            <RadioButton idm="7" properties="[object Object]" events="[object Object]" _text="" seq="9"/>
+                        </9>
+                        <10/>
+                        <11>
+                            <CheckBox idm="2" properties="[object Object]" events="[object Object]" seq="11"/>
+                        </11>
+                        <12>
+                            <Button idm="1" properties="[object Object]" events="[object Object]" seq="12"/>
+                        </12>
+                    </StackPanel>
+                </4>
+                <13>
+                    <Image idm="4" properties="[object Object]" events="[object Object]" seq="13"/>
+                </13>
+            </DockPanel>
+        </2>
+    </Window>
+</1>

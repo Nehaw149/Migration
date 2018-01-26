@@ -1,0 +1,31 @@
+{
+    "STYLE": {
+        "HTML": {
+            "CSS": {
+                "FontSize": "font-size",
+                "FontWeight": "font-weight",
+                "FontStyle": "font-style",
+                "FontFamily":"font-family",
+                "Background": "background-color",
+                "Foreground": "color"
+            },
+            "ATTRIBUTES": {
+                "Content": "",
+                "PasswordChar": [
+                    ""
+                ],
+                "MaxLength": "maxlength",
+                "Text": "",
+                "LastChildFill": "",
+                "Source": "src",
+                "Name": "name",
+                "GroupName": [
+                    "",
+                    "name"
+                ],
+                "Title": "title",
+                "IsEnabled":"disabled"
+            }
+        }
+    }
+}

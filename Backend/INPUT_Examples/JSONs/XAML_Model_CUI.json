@@ -1,0 +1,29 @@
+{
+    "1": {
+        "Window": {
+            "2": {
+                "DockPanel": {
+                    "3": {
+                        "Label": {}
+                    },
+                    "4": {
+                        "StackPanel": {
+                            "5": {
+                                "PasswordBox": {}
+                            },
+                            "6": {
+                                "Label": {}
+                            },
+                            "7": {
+                                "CheckBox": {}
+                            }
+                        }
+                    },
+                    "8": {
+                        "Image": {}
+                    }
+                }
+            }
+        }
+    }
+}

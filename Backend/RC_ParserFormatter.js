@@ -16,7 +16,7 @@ loopStart = 'loopStart_' + loopS_Count;
 loopEnd = 'loopEnd_' + loopE_Count;
 var attrArray = [];
 var finalAttrArray = [];
-
+var subStateObj = {}
 var readPathName = "./Parsed_RC_TEST.json";
 var fileText = "";
 var writePathName = "./Parsed_RC_TEST_MODEL.xml";
@@ -87,7 +87,7 @@ function dir_Formatting(dirAttObject) {
 }
 //gets the state object
 function getState() {
-    var state_Obj, stateName, finalState, key_state, y, stateIdentifier ;
+    var state_Obj, stateName, finalState, key_state, y, stateIdentifier, attrIdentifier ;
     for (var j = 0; j < arguments.length; j++) {
         state_Obj = arguments[j];
         childName = 'child_' + child_Count;
@@ -99,17 +99,17 @@ function getState() {
                 for (key_state in finalState) {                    
                     if (key_state === stateName) {
                          stateIdentifier = finalState[key_state];
-                         setState(stateIdentifier);    
                         // console.log(finalState[key_state]);                        state_Count++;
                     }
                 }
                 if (k === 1) {
-                    getAttributes(finalState);
+                    attrIdentifier = getAttributes(finalState);
+                    setState(stateIdentifier, attrIdentifier);                    
                 }
             } if (j === 1) {
                 //loop_Obj = attrs_Obj[key_att];
-                //console.log(finalState);    
-                // getLoop(state_Obj);
+                //console.log(state_Obj);    
+                //getLoop(state_Obj);
             }
 
         }
@@ -117,32 +117,13 @@ function getState() {
     }
 //}
 
-function getIdealStateObj(idealStateName) {
-    readPathName = './TEMPLATE_RC_tags.json'
-    fs.readFile(readPathName, function (err, data) {
-        if (err) { console.log(err); }
-        var rcOb_String = data.toString();
-        var rcTemplate_Obj = JSON.parse(rcOb_String);
-        var key_rc, key_idealState;
-        for (key_rc in rcTemplate_Obj) {           
-            if (key_rc === 'rc') {
-                var idealStates = rcTemplate_Obj[key_rc];
-                for (key_idealState in idealStates) {
-                    if (key_idealState === idealStateName) {
-                        return idealStates[key_idealState];
-                    }
-                }
-            }
-        }
-    })
-}
 function setAttributes(finalAttrArray) {
     var stateAttributes = [];
     var formattedString = '';
     var flag = 0;
     var getStringStart = 0, getStringEnd = 0;
     var countStrings
-    finalAttrArray = [ '8', '"MS', 'Shell', 'Shell', 'Dlg"', '0', '0', '0x1' , '"Hey', 'Second', 'Test"' ]
+    //finalAttrArray = [ '8', '"MS', 'Shell', 'Shell', 'Dlg"', '0', '0', '0x1' , '"Hey', 'Second', 'Test"' ]
     for (var arr = 0; arr < finalAttrArray.length; arr++) {
         if (finalAttrArray[arr].includes('\"')){
             flag ++;                
@@ -165,74 +146,93 @@ function setAttributes(finalAttrArray) {
              stateAttributes.push(finalAttrArray[arr])            
          }
     }
-     console.log(stateAttributes);                
+    return stateAttributes;                
 }
 
-function setState(stateIdentifier) {
-    var idealState = getIdealStateObj(stateIdentifier);
+function setState(stateIdentifier, attrIdentifier) {
+    readPathName = './TEMPLATE_RC_tags.json'
+    var subStateObj;
     var stateAttributes = [];
-    var newVal, arrVal; 
-    function setAttributes(finalAttrArray){
-        var stateAttributes = [];
-        
-        console.log(finalAttrArray);
-        for(var arr = 0; arr<finalAttrArray.length; arr++){
-            if(finalAttrArray[arr].includes("/")){
-                
-    
-    
-                stateAttributes.push(finalAttrArray[arr])
-            }else{
-                stateAttributes.push(finalAttrArray[arr])
+    var newVal, arrVal;
+    fs.readFile(readPathName, function reading(err, data) {
+        if (err) { console.log(err); }
+        var rcOb_String = data.toString();
+        var rcTemplate_Obj = JSON.parse(rcOb_String);
+        var key_rc, key_idealState;
+        for (key_rc in rcTemplate_Obj) {
+            if (key_rc === 'rc') {
+                var idealStates = rcTemplate_Obj[key_rc];
+                for (key_idealState in idealStates) {
+                    if (key_idealState === stateIdentifier) {
+                        subStateObj = idealStates[key_idealState]
+                    }
+                }
             }
         }
-    }
-    if (stateIdentifier === 'FONT') {
-        var key_Font;
-        
-        for (key_Font in idealState) {
-            if (key_Font === 'pointsize') {
+        var elementJson = [];
+        if (stateIdentifier === 'FONT') {
+            var key_Font;
+            for (key_Font in subStateObj) {
 
-            }
-            if (key_Font === 'pointsize') {
-                
-            }
-            if (key_Font === 'pointsize') {
-                
-            }
-            if (key_Font === 'pointsize') {
-                
+                var attrSetLen = attrIdentifier.length;
+                var idealAttrLen = subStateObj[key_Font].length;
+
+            //    console.log(idealAttrLen + '****' + attrSetLen);
+                for (var no = 0; no < attrSetLen; no++) {
+                    if (key_Font === 'idm') {
+                    //    console.log('idm');
+                    }
+                    if (key_Font === 'pointsize' && no === 0) {
+                        console.log('pointsize'+attrIdentifier[no]);
+                        var fontAtt = {
+                            'pointsize': attrIdentifier[no]
+                        }
+                        elementJson.push(fontAtt)
+                        console.log(fontAtt.toString());                        
+                    }
+                    if (key_Font === 'typeface') {
+
+                    }
+                    if (key_Font === 'weight') {
+
+                    }
+                    if (key_Font === 'italic') {
+
+                    }
+                    if (key_Font === 'charset') {
+
+                    }
+                }
             }
         }
-    }
-    if (stateIdentifier === 'include') {
+        if (stateIdentifier === 'include') {
 
-    }
-    if (stateIdentifier === 'define') {
+        }
+        if (stateIdentifier === 'define') {
 
-    }
-    if (stateIdentifier === 'define') {
+        }
+        if (stateIdentifier === 'define') {
 
-    }
-    if (stateIdentifier === 'ShapesCursor') {
-        // formatJSON(model_RC_JSON);
-    }
-    if (stateIdentifier === 'ShapesIcon') {
+        }
+        if (stateIdentifier === 'ShapesCursor') {
+            // formatJSON(model_RC_JSON);
+        }
+        if (stateIdentifier === 'ShapesIcon') {
 
-    }
-    if (stateIdentifier === 'ShapesMenu') {
+        }
+        if (stateIdentifier === 'ShapesMenu') {
 
-    }
-    if (stateIdentifier === 'POPUP') {
+        }
+        if (stateIdentifier === 'POPUP') {
 
-    }
-    if (stateIdentifier === 'MENUITEM') {
+        }
+        if (stateIdentifier === 'MENUITEM') {
 
-    }
-    if (stateIdentifier === 'LTEXT') {
+        }
+        if (stateIdentifier === 'LTEXT') {
 
-    }
-    
+        }
+    })
 }
 
 function getAttributes(y) {
@@ -250,7 +250,8 @@ function getAttributes(y) {
             }
         }    
         finalAttrArray = finalAttrArray.concat(attrArray);     
-    }setAttributes(finalAttrArray);
+    }
+    return setAttributes(finalAttrArray);
 }
 // for 2 leveled arrays
 function getDataFromJSONArray() {
@@ -268,8 +269,7 @@ function getDataFromJSONArray() {
                         console.log('OR Styling');
                     } else {
                         attrArray.push(finalData2)
-                       // console.log(finalData2);
-                        
+                       // console.log(finalData2);                        
                     }
                 }
             }
@@ -281,6 +281,8 @@ function getDataFromJSONArray() {
 function getLoop(finalState) {
     var childName = 'child_' + child_Count;
     var child_Obj, key_loop, loop_Obj;
+    console.log(finalState);
+    
     for (var ch = 0; ch < finalState.length; ch++) {
         loop_Obj = finalState[ch];
         for (var l = 0; l < loop_Obj.length; l++) {
@@ -467,3 +469,24 @@ console.log(content); */
 //         console.log(RC_content);
 //     }
 // })
+
+// function getIdealStateObj(stateIdentifier, fn) {
+//     readPathName = './TEMPLATE_RC_tags.json'
+//     var subStateObj;
+//     fs.readFile(readPathName, function reading(err, data) {
+//         if (err) { console.log(err); }
+//         var rcOb_String = data.toString();
+//         var rcTemplate_Obj = JSON.parse(rcOb_String);
+//         var key_rc, key_idealState;
+//         for (key_rc in rcTemplate_Obj) {
+//             if (key_rc === 'rc') {
+//                 var idealStates = rcTemplate_Obj[key_rc];
+//                 for (key_idealState in idealStates) {
+//                     if (key_idealState === stateIdentifier) {
+//                         subStateObj = idealStates[key_idealState]
+//                     }
+//                 }
+//             }
+//         }
+//     })
+// }
