@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "definitions": {
+    "child": {
+      "patternProperties": {
+        "^[0-9]+$": {
+          "type": "object",
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "Window"
+              ],
+              "properties": {
+                "Window": {
+                  "type": "object",
+                  "required": [
+                    "_attributes"
+                  ],
+                  "properties": {
+                    "_attributes": {
+                      "type": "object"
+                    }
+                  },
+                  "$ref": "#/definitions/child"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "DockPanel"
+              ],
+              "properties": {
+                "DockPanel": {
+                  "$ref": "#/definitions/DockPanel"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Window": {
+      "type": "object",
+      "allOf": [
+        {
+          "required": [
+            "_attributes"
+          ]
+        },
+        {
+          "properties": {
+            "_attributes": {
+              "type": "object"
+            }
+          }
+        }
+      ],
+      "$ref": "#/definitions/child"
+    },
+    "DockPanel": {
+      "type": "object",
+      "required": [
+        "_attributes"
+      ],
+      "properties": {
+        "_attributes": {
+          "type": "object"
+        }
+      },
+      "$ref": "#/definitions/child"
+    }
+  },
+  "$ref": "#/definitions/child"
+}

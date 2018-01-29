@@ -1,0 +1,177 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "object",
+    "definitions": {
+        "child": {
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "required": [
+                                "Window"
+                            ],
+                            "properties": {
+                                "Window": {
+                                    "$ref": "#/definitions/Window"
+                                }
+                            }
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "DockPanel"
+                            ],
+                            "properties": {
+                                "DockPanel": {
+                                    "$ref": "#/definitions/Window"
+                                }
+                            }
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "Button"
+                            ],
+                            "properties": {
+                                "Button": {
+                                    "$ref": "#/definitions/Button"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "Window": {
+            "type": "object",
+            "allOf": [
+                {
+                    "required": [
+                        "_attributes"
+                    ]
+                },
+                {
+                    "properties": {
+                        "_attributes": {
+                            "type": "object"
+                        }
+                    }
+                },
+                {
+                    "$ref": "#/definitions/child"
+                }
+            ]
+        },
+        "DockPanel": {
+            "type": "object",
+            "allOf": [
+                {
+                    "required": [
+                        "_attributes"
+                    ]
+                },
+                {
+                    "properties": {
+                        "_attributes": {
+                            "type": "object"
+                        }
+                    }
+                },
+                {
+                    "$ref": "#/definitions/child"
+                }
+            ]
+        },
+        "Button": {
+            "type": "object",
+            "allOf": [
+                {
+                    "required": [
+                        "_attributes"
+                    ]
+                },
+                {
+                    "properties": {
+                        "_attributes": {
+                            "type": "object",
+                            "required": [
+                                "idm",
+                                "properties",
+                                "events",
+                                "seq"
+                            ],
+                            "properties": {
+                                "idm": {
+                                    "type": "integer",
+                                    "enum": [
+                                        1
+                                    ]
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "anyOf": [
+                                        {
+                                            "properties": {
+                                                "Content": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": []
+                                        },
+                                        {
+                                            "properties": {
+                                                "IsEnabled": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "FontSize": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "FontWeight": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "events": {
+                                    "type": "object",
+                                    "anyOf": [
+                                        {
+                                            "properties": {
+                                                "Click": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": []
+                                        },
+                                        {
+                                            "properties": {
+                                                "OnKeyDown": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "$ref": "#/definitions/child"
+                }
+            ]
+        }
+    },
+    "$ref": "#/definitions/child"
+}
