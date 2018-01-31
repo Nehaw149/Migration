@@ -18,7 +18,7 @@ var temp_com_events_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.com_even
 // var temp_idm_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.idm));
 var temp_ele_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.Elements));
 
-function formatXAML_window(XAMLob, migratedXAMLObj){
+function create_AUI_Sequential(XAMLob, migratedXAMLObj){
 	//	console.log(XAMLob);
 	for(var keys_XAML in XAMLob) {
 		if(temp_ele_Obj.hasOwnProperty(keys_XAML)){
@@ -64,7 +64,7 @@ function setAttributes(windowAttObject, migratedXAMLObj, sequence, element){
 			migratedXAMLObj[sequence][element]._attributes._text = JSON.parse(JSON.stringify(windowAttObject[key]));
 		}else {
 			// recursion
-			formatXAML_window(JSON.parse(JSON.stringify(windowAttObject)), migratedXAMLObj[sequence][element]);
+			create_AUI_Sequential(JSON.parse(JSON.stringify(windowAttObject)), migratedXAMLObj[sequence][element]);
 			return;
 		}
 	}
@@ -88,23 +88,33 @@ function getAttributeObjForAnElement(attributes, xaml_element){
 	var temp_events_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.Elements[xaml_element].events));
 	var temp_text_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.Elements[xaml_element]));
 
+	console.log(JSON.stringify(attributes) + "***" + xaml_element + JSON.stringify(att_obj))
+	// for(var key_temp_attr in att_obj){
+	// 	if(key_temp_attr == "properties"){
+	// 		for(var key_temp_attr_prop in att_obj[key_temp_attr]){
+	// 			if((att_obj[key_temp_attr][key_temp_attr_prop] === 0) ||(att_obj[key_temp_attr][key_temp_attr_prop] === false)){				
+	// 				att_obj[key_temp_attr][key_temp_attr_prop] == ""
+	// 				console.log(key_temp_attr_prop)
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// console.log(JSON.stringify(att_obj))
+
+
+	// for(var key_temp_com_props in temp_props_Obj){
+	// 	if(temp_props_Obj[key_temp_com_props] === 0){
+	// 		temp_props_Obj[key_temp_com_props] == ""
+	// 		console.log(key_temp_com_props)
+	// 	}
+	// }
+
 	for(var key in attributes){
 		// skipped idm because its undefined, add it when its defined
 
 		// com_attr
 		if(temp_com_attr_Obj.hasOwnProperty(key)){
-			console.log(JSON.stringify(temp_com_attr_Obj[key]))
-
-
-/// Modify HERE
-
-
-			if(temp_com_attr_Obj[key] !== ""){
-				att_obj.properties[key] = ""
-			}else if(attributes[key] !== ""){
-				att_obj.properties[key] = JSON.parse(JSON.stringify(attributes[key]))
-				console.log(key)
-			}
+			att_obj.properties[key] = JSON.parse(JSON.stringify(attributes[key]))
 		}
 		// com_events
 		if(temp_com_events_Obj.hasOwnProperty(key)){
@@ -112,14 +122,10 @@ function getAttributeObjForAnElement(attributes, xaml_element){
 		}
 		// properties
 		if(temp_props_Obj.hasOwnProperty(key)){
-			console.log(JSON.stringify(temp_props_Obj[key]))
+			// if(isNaN(attributes[key])){
+			// }
+			att_obj.properties[key] = (attributes[key])
 
-			if(temp_props_Obj[key] !== ""){
-				att_obj.properties[key] = ""
-				console.log(key)
-			}else{
-				att_obj.properties[key] = JSON.parse(JSON.stringify(attributes[key]))
-			}
 		}
 		// events
 		if(temp_events_Obj.hasOwnProperty(key)){
@@ -130,6 +136,6 @@ function getAttributeObjForAnElement(attributes, xaml_element){
 	return att_obj;
 }
 
-formatXAML_window(XAML_ob, migratedXAMLObj);
-fs.writeFileSync("../Models/AUI/Abstract_Model.json",JSON.stringify(migratedXAMLObj))
+create_AUI_Sequential(XAML_ob, migratedXAMLObj);
+fs.writeFileSync("../Models/AUI/Abstract_ModelWithSequence.json",JSON.stringify(migratedXAMLObj))
 

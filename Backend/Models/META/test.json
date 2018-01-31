@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "object",
+    "definitions": {
+        "child": {
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "required": [
+                                "Window"
+                            ],
+                            "properties": {
+                                "Window": {
+                                    "type": "object",
+                                    "allOf": [
+                                        {
+                                            "required": [
+                                                "_attributes"
+                                            ]
+                                        },
+                                        {
+                                            "properties": {
+                                                "_attributes": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "$ref": "#/definitions/child"
+                                }
+                            }
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "DockPanel"
+                            ],
+                            "properties": {
+                                "DockPanel": {
+                                    "type": "object",
+                                    "required": [
+                                        "_attributes"
+                                    ],
+                                    "properties": {
+                                        "_attributes": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "$ref": "#/definitions/child"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "$ref": "#/definitions/child"
+}

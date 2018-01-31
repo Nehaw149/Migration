@@ -1,7 +1,14 @@
 {
-    "EVENT":{
-        "HTML":{
-            
-        }
+    "EVENT": {
+        "Click": "onclick",
+        "Checked": "onclick",
+        "Unchecked": "onclick",
+        "Paste": "onpaste",
+        "Closed": "onunload",
+        "ContentRendered": "onload",
+        "OnKeyDown": "onkeydown",
+        "OnKeyUp": "onkeyup",
+        "GotFocus": "onfocus",
+        "DragStarting": "ondragstart"
     }
 }

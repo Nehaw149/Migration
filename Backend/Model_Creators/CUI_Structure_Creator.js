@@ -3,7 +3,7 @@ var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}, html_JSON = {}
 var sequence = 0
 var key_XAML_Model = '', key_Child = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '', key_temp_html = ''
 
-var startStr = '', polymerStr = '', polymerImportStr = '', cui_html = '', polymer_cui_html = ''
+var startStr = '', polymerStr = '', polymerImportStr = '', cui_html = '', polymer_cui_html = '', write_CUI_Data = ''
 var end_Tag_Stack = [], Obj_Stack = []
 var XAML_Stack = [], Sequence_Stack = [], start_Stack = [], end_Stack = [], customElement_Stack = []
 var test_counter = 0
@@ -33,7 +33,7 @@ function appendStart_tag(key_Tag_Str, start_Tag_Str) {
     var cui_start = ''
     if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
         //  getting a single tag
-        var id_text = " id='" + sequence + "' ";
+        var id_text = " id='id_" + sequence + "' ";
         cui_start = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].HTML.Start)
         cui_start = cui_start.replace(/["]/g, "");
 
@@ -89,7 +89,7 @@ function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
 
         //  write ELEMENTS in the main HTML file
         if (polymer_cui_start.includes(" ")) {
-            id_text_Polymer = " id='" + sequence + "' "
+            id_text_Polymer = " id='id_" + sequence + "' "
             polymer_cui_start = polymer_cui_start.replace(" ", id_text_Polymer)
             polymer_Tag_Str = polymer_Tag_Str.concat(polymer_cui_start)
         }
@@ -183,7 +183,9 @@ String.prototype.splice = function (idx, rem, str) {
 }
 
 var append_at_html_index = cui_html.indexOf("Mig-Proj'>");
-fs.writeFileSync("../Models/CUI/HTML/CUI_Model_HTML.html", cui_html.splice((append_at_html_index + 10), 0, startStr))
+write_CUI_Data = cui_html.splice((append_at_html_index + 10), 0, startStr)
+fs.writeFileSync("../Models/CUI/HTML/CUI_Model_HTML.html", write_CUI_Data)
+fs.writeFileSync("../OUTPUT/FUI/HTML/FUI_Model_HTML.html", write_CUI_Data)
 
 var append_at_polymer_html_index = polymer_cui_html.indexOf("Mig-Proj'>");
 polymer_cui_html = polymer_cui_html.splice((append_at_polymer_html_index + 10), 0, polymerStr)

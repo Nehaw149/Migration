@@ -61,7 +61,7 @@ function generate_CUI_Model(abstract_Model) {
               //  console.log("****")
                 prop_Obj = popped_Obj[key_Attr]
 
-                set_Attributes(prop_Obj, popped_Seq)
+                set_Attributes(prop_Obj, ("id_"+ popped_Seq))
               //  console.log(element_Stack)
                 break name
               }

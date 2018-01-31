@@ -1,31 +1,35 @@
 {
     "STYLE": {
-        "HTML": {
-            "CSS": {
-                "FontSize": "font-size",
-                "FontWeight": "font-weight",
-                "FontStyle": "font-style",
-                "FontFamily":"font-family",
-                "Background": "background-color",
-                "Foreground": "color"
-            },
-            "ATTRIBUTES": {
-                "Content": "",
-                "PasswordChar": [
-                    ""
-                ],
-                "MaxLength": "maxlength",
-                "Text": "",
-                "LastChildFill": "",
-                "Source": "src",
-                "Name": "name",
-                "GroupName": [
-                    "",
-                    "name"
-                ],
-                "Title": "title",
-                "IsEnabled":"disabled"
-            }
+        "CSS": {
+            "FontSize": "font-size",
+            "FontWeight": "font-weight",
+            "FontStyle": "font-style",
+            "FontFamily": "font-family",
+            "Background": "background-color",
+            "Foreground": "color",            
+            "Height":"height",
+            "Width":"width",
+            "LastChildFill": "NONE",
+            "DockPanel.Dock":"NONE",
+            "Margin":"margin",
+            "HorizontalAlignment":"NONE",
+            "VerticalAlignment":"vertical-align"
+        },
+        "ATTRIBUTES": {
+            "Content": "innerHTML",
+            "PasswordChar": "NONE",
+            "MaxLength": "maxlength",
+            "Text": "innerHTML",
+            "Source": "src",
+            "Name": "name",
+            "GroupName":"NONE",
+            "Title": "title",
+            "IsEnabled": "disabled",
+            "x:Class":"NONE",
+            "xmlns":"NONE",
+            "xmlns:x":"NONE",
+            "IsChecked":"checked",
+            "IsThreeState":"NONE"
         }
     }
 }
