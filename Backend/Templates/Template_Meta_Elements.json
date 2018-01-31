@@ -21,7 +21,7 @@
             "properties": {
               "idm": {
                 "type": "integer",
-                "enum":[""]
+                "enum":[]
               },
               "properties": {
                 "type": "object",

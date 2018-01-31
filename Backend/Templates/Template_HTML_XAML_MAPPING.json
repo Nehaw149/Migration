@@ -23,8 +23,8 @@
     },
     "Label": {
         "HTML": {
-            "Start": "<label class='Label'>",
-            "End": "</label>"
+            "Start": "<div><label class='Label'>",
+            "End": "</label></div>"
         },
         "Polymer": {
             "Start": "<iron-label class='Label'>",
@@ -45,8 +45,8 @@
     },
     "PasswordBox": {
         "HTML": {
-            "Start": "<input type='password' class='PasswordBox'>",
-            "End": ""
+            "Start": "<div><input type='password' class='PasswordBox'>",
+            "End": "</div>"
         },
         "Polymer": {
             "Start": "<paper-input type='password' class='PasswordBox'>",
@@ -56,8 +56,8 @@
     },
     "TextBlock": {
         "HTML": {
-            "Start": "<textarea class='TextBlock'>",
-            "End": "</textarea>"
+            "Start": "<div><textarea class='TextBlock'>",
+            "End": "</textarea></div>"
         },
         "Polymer": {
             "Start": "<paper-textarea class='TextBlock'>",
@@ -67,8 +67,8 @@
     },
     "RadioButton": {
         "HTML": {
-            "Start": "<input type='radio' class='RadioButton'>",
-            "End": ""
+            "Start": "<div><input type='radio' class='RadioButton'>",
+            "End": "</div>"
         },
         "Polymer": {
             "Start": "<paper-radio-group><paper-radio-button class='RadioButton'>",
@@ -78,8 +78,8 @@
     },
     "CheckBox": {
         "HTML": {
-            "Start": "<input type='checkbox' class='CheckBox'>",
-            "End": ""
+            "Start": "<div><input type='checkbox' class='CheckBox'>",
+            "End": "</div>"
         },
         "Polymer": {
             "Start": "<paper-checkbox class='CheckBox'>",
@@ -89,8 +89,8 @@
     },
     "Button": {
         "HTML": {
-            "Start": "<button class='Button'>",
-            "End": "</button>"
+            "Start": "<div><button class='Button'>",
+            "End": "</button></div>"
         },
         "Polymer": {
             "Start": "<paper-button class='Button'>",
@@ -100,8 +100,8 @@
     },
     "TextBox": {
         "HTML": {
-            "Start": "<input type='text' class='TextBox'>",
-            "End": ""
+            "Start": "<div><input type='text' class='TextBox'>",
+            "End": "</div>"
         },
         "Polymer": {
             "Start": "<paper-input class='TextBox'>",
@@ -111,8 +111,8 @@
     },
     "Image": {
         "HTML": {
-            "Start": "<img class='Image'>",
-            "End": ""
+            "Start": "<div><img class='Image'>",
+            "End": "</div>"
         },
         "Polymer": {
             "Start": "<iron-image class='Image'>",
