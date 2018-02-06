@@ -1,0 +1,40 @@
+{
+    "rc": {
+        "Elements": {
+            "CAPTION": "Label",
+            "CTEXT": "TextBlock",
+            "LTEXT": "TextBlock",
+            "RTEXT": "TextBlock",
+            "CHECKBOX": "CheckBox",
+            "RADIOBUTTON": "RadioButton",
+            "PUSHBUTTON": "Button",
+            "EDITTEXT": "TextBox",
+            "DIRECTIVE": "",
+            "FONT": "",
+            "BEGIN":""
+        },
+        "Attributes": {
+            "id": "Name",
+            "width": "Width",
+            "height": "Height",
+            "x": "",
+            "y": "",
+            "pointsize":"FontSize",
+            "typeface":"FontFamily",
+            "weight":"FontWeight",
+            "italic":"FontStyle",
+            "charset":"",
+            "filename":"Source"
+        },
+        "Styles": {
+            "WS_TABSTOP": "",
+            "WS_CHILD":"",
+            "WS_VISIBLE":"",
+            "WS_CAPTION":"",
+            "WS_VSCROLL": "",
+            "TOPMARGIN": "",
+            "BOTTOMMARGIN": ""
+        },
+        "Events":{}
+    }
+}

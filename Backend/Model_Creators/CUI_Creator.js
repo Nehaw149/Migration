@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var abstract_Model_Obj = JSON.parse(fs.readFileSync('../Models/AUI/Abstract_ModelWithSequence.json', 'utf-8'));
+var abstract_Model_Obj = JSON.parse(fs.readFileSync('../Models/AUI/Abstract_Model.json', 'utf-8'));
 var cui_Model_Str = '', style_Model_Str = '', sequence = 0
 
 var key_Element_ID = '', key_Element_Name = '', key_Property_Name = ''

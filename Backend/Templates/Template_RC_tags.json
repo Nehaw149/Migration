@@ -1,0 +1,148 @@
+{
+    "rc": {
+        "Statement": {
+            "CAPTION": {
+                "idm": 1,
+                "properties": {},
+                "events": {},
+                "_text": ""
+            },
+            "CHECKBOX": {
+                "idm": 3,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "LTEXT": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "CTEXT": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "RTEXT": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "RADIOBUTTON": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "PUSHBUTTON": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "EDITTEXT": {
+                "idm": 11,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "DEFPUSHBUTTON": {
+                "idm": 8,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "DIRECTIVE": {
+                "idm": 9,
+                "_text": ""
+            },
+            "FONT": {
+                "idm": 10,
+                "properties": {
+                    "pointsize": "",
+                    "typeface": "",
+                    "weight": "",
+                    "italic": "",
+                    "charset": ""
+                },
+                "events": {}
+            }
+        },
+        "Resource":{
+            "DIALOG":{
+                "idm": 8,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {},
+                "_text": ""
+            },
+            "FONT":{
+                "idm":5,
+                "filename":""
+            }
+        },
+        "com_attr": {
+            "idm": 17,
+            "WS_TABSTOP": "",
+            "WS_VSCROLL": "",
+            "TOPMARGIN": "",
+            "BOTTOMMARGIN": ""
+        }
+    }
+}

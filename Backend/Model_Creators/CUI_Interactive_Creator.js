@@ -1,6 +1,6 @@
-var fs = require('fs');
+var fs = require('fs')
 
-var abstract_Model_Obj = JSON.parse(fs.readFileSync('../Models/AUI/Abstract_Model.json', 'utf-8'));
+var abstract_Model_Obj = JSON.parse(fs.readFileSync('../Models/AUI/Abstract_Model.json', 'utf-8'))
 var style_Model_Str = '', events_Model_Str = '', sequence = 0
 
 var key_Element_ID = '', key_Element_Name = '', key_Property_Name = '', key_Sub_Prop = ''

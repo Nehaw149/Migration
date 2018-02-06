@@ -1,58 +1,58 @@
 {
-    "$schema": "http://json-schema.org/draft-06/schema#",
-    "title": "",
-    "type": "object",
-    "definitions": {},
-    "properties": {
-      "Button": {
-        "type": "object",
-        "required": [
-          "_attributes"
-        ],
-        "properties": {
-          "_attributes": {
-            "type": "object",
-            "required": [
-              "idm",
-              "properties",
-              "events",
-              "seq"
-            ],
-            "properties": {
-              "idm": {
-                "type": "integer",
-                "enum":[]
-              },
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "UI_ELEMENT",
+  "type": "object",
+  "definitions": {},
+  "properties": {
+    "UI_ELEMENT": {
+      "type": "object",
+      "allOf": [
+        {
+          "required": [
+            "_attributes"
+          ]
+        },
+        {
+          "properties": {
+            "_attributes": {
+              "type": "object",
+              "required": [
+                "idm",
+                "properties",
+                "events",
+                "seq"
+              ],
               "properties": {
-                "type": "object",
-                "anyOf": [
-                    {
-                      "properties": {
-                      },
-                      "required": []
-                    },
+                "idm": {
+                  "type": "integer",
+                  "enum": [
+                    0
+                  ]
+                },
+                "properties": {
+                  "type": "object",
+                  "anyOf": [
                     {
                       "properties": {}
                     }
                   ]
-                
-              },
-              "events": {
-                "type": "object",
-                "anyOf": [
-                  {
-                    "properties": {
-                    },
-                    "required": []
-                  },
-                  {
-                    "properties": {}
-                  }
-                ]
+                },
+                "events": {
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "properties": {}
+                    }
+                  ]
+                }
               }
             }
           }
+        },
+        {
+          "$ref": "#/definitions/child"
         }
-      }
+      ]
     }
   }
+}

@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs')
 var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}, html_JSON = {}
 var sequence = 0
 var key_XAML_Model = '', key_Child = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '', key_temp_html = ''
@@ -8,17 +8,13 @@ var end_Tag_Stack = [], Obj_Stack = []
 var XAML_Stack = [], Sequence_Stack = [], start_Stack = [], end_Stack = [], customElement_Stack = []
 var test_counter = 0
 
-//  XAML_Model_CUI_Obj ={"1":{"Window":{"2":{"DockPanel":{"3":{"Label":{}},"4":{"StackPanel":{"5":{"PasswordBox":{}},"6":{"Label":{}},"7":{"CheckBox":{}}}},"8":{"Image":{}}}}}}}
-//  Template_HTML_XAML_MAPPING_OBJ = {"Window":{"Start":"<div class='Window'>","End":"</div>"},"DockPanel":{"Start":"<div class='DockPanel'>","End":"</div>"},"Label":{"Start":"<label class='Label'>","End":"</label>"},"StackPanel":{"Start":"<div class='StackPanel'>","End":"</div>"},"PasswordBox":{"Start":"<input type='password' class='PasswordBox'>","End":""},"TextBlock":{"Start":"<textarea class='TextBlock'>","End":"</textarea>"},"RadioButton":{"Start":"<input type='radio' class='RadioButton'>","End":""},"CheckBox":{"Start":"<input type='checkbox' class='CheckBox'>","End":""},"Button":{"Start":"<button class='Button'>","End":"</button>"},"TextBox":{"Start":"<input type='text' class='Button'>","End":""},"Image":{"Start":"<img class='Image'>","End":""}}
-//  XAML_Model_Obj = JSON.parse(fs.readFileSync('./XAML_Model_final.json', 'utf-8'));
-
 cui_html = fs.readFileSync('../Templates/Template_CUI_HTML.html', 'utf-8')
 polymer_cui_html = fs.readFileSync('../Templates/Template_Polymer_CUI_HTML.html', 'utf-8')
 
-XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('../Models/CUI/CUI_Model.json', 'utf-8'));
-Template_HTML_XAML_MAPPING_OBJ = JSON.parse(fs.readFileSync('../Templates/Template_HTML_XAML_MAPPING.json', 'utf-8'));
+XAML_Model_CUI_Obj = JSON.parse(fs.readFileSync('../Models/CUI/CUI_Model.json', 'utf-8'))
+Template_HTML_XAML_MAPPING_OBJ = JSON.parse(fs.readFileSync('../Templates/Template_HTML_XAML_MAPPING.json', 'utf-8'))
 
-var cui_Obj = XAML_Model_CUI_Obj;
+var cui_Obj = XAML_Model_CUI_Obj
 var temp_xaml_html_Obj = Template_HTML_XAML_MAPPING_OBJ
 
 function isEmpty(obj) {
@@ -55,7 +51,7 @@ function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
 
         //  if a Web Component
         if (polymer_cui_start != emptyStr) {
-            polymer_cui_start = polymer_cui_start.replace(/["]/g, "");
+            polymer_cui_start = polymer_cui_start.replace(/["]/g, "")
             polymer_import = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].Polymer.Import)
             polymer_import = polymer_import.replace(/["]/g, "");
         }
@@ -179,7 +175,7 @@ function generate_CUI(element_Obj, xaml_Tag_Stack, Seq_Stack) {
 generate_CUI(cui_Obj, XAML_Stack, Sequence_Stack)
 
 String.prototype.splice = function (idx, rem, str) {
-    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem))
 }
 
 var append_at_html_index = cui_html.indexOf("Mig-Proj'>");

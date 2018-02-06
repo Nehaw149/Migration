@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs')
 var structure_HTML = fs.readFileSync('../Models/CUI/HTML/CUI_Model_HTML.html', 'utf-8')
 var interaction_Event = JSON.parse(fs.readFileSync('../Models/CUI/Interaction/CUI_Interaction_EVENT_Model.json', 'utf-8'))
 var interaction_Style = JSON.parse(fs.readFileSync('../Models/CUI/Interaction/CUI_Interaction_STYLE_Model.json', 'utf-8'))
