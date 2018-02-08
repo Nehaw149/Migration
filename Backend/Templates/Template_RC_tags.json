@@ -3,81 +3,82 @@
         "Statement": {
             "CAPTION": {
                 "idm": 1,
-                "properties": {},
-                "events": {},
-                "_text": ""
+                "properties": {
+                    "_text": ""
+                },
+                "events": {}
             },
             "CHECKBOX": {
                 "idm": 3,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "LTEXT": {
                 "idm": 11,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "CTEXT": {
                 "idm": 11,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "RTEXT": {
                 "idm": 11,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "RADIOBUTTON": {
                 "idm": 11,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "PUSHBUTTON": {
                 "idm": 11,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "EDITTEXT": {
                 "idm": 11,
@@ -88,24 +89,25 @@
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "DEFPUSHBUTTON": {
                 "idm": 8,
                 "properties": {
+                    "_text": "",
                     "id": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
             "DIRECTIVE": {
                 "idm": 9,
-                "_text": ""
+                "properties": {
+                    "_text": ""
+                }
             },
             "FONT": {
                 "idm": 10,
@@ -117,24 +119,51 @@
                     "charset": ""
                 },
                 "events": {}
+            },
+            "STYLE": {
+                "idm": 10,
+                "properties": {
+                    "style": ""
+                },
+                "events": {}
             }
         },
-        "Resource":{
-            "DIALOG":{
+        "Resource": {
+            "DIALOGEX": {
                 "idm": 8,
                 "properties": {
-                    "id": "",
+                    "nameID": "",
                     "x": "",
                     "y": "",
                     "width": "",
                     "height": ""
                 },
-                "events": {},
-                "_text": ""
+                "events": {}
             },
-            "FONT":{
-                "idm":5,
-                "filename":""
+            "DIALOG": {
+                "idm": 8,
+                "properties": {
+                    "nameID": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {}
+            },
+            "ICON": {
+                "idm": 8,
+                "properties": {
+                    "nameID": "",
+                    "filename": ""
+                }
+            },
+            "FONT": {
+                "idm": 5,
+                "properties": {
+                    "nameID": "",
+                    "filename": ""
+                }
             }
         },
         "com_attr": {

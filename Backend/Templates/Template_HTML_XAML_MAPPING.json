@@ -119,5 +119,27 @@
             "End": "</iron-image>",
             "Import": "<link rel='import' href='bower_components/iron-image/iron-image.html'>"
         }
+    },
+    "Paragraph": {
+        "HTML": {
+            "Start": "<p>",
+            "End": "</p>"
+        },
+        "Polymer": {
+            "Start": "",
+            "End": "",
+            "Import": ""
+        }
+    },
+    "Style": {
+        "HTML": {
+            "Start": "<style>",
+            "End": "</style>"
+        },
+        "Polymer": {
+            "Start": "",
+            "End": "",
+            "Import": ""
+        }
     }
 }

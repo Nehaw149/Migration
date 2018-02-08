@@ -168,10 +168,19 @@
                     "Closed": "",
                     "ContentRendered": ""
                 }
+            },
+            "Style":{
+                "idm": 12,
+                "properties": {
+                    "TargetType": "",
+                    "Property": "",
+                    "Value": ""
+                },
+                "events": {
+                }
             }
         },
         "com_attr": {
-            "DockPanel.Dock":"",
             "Height":0,
             "Width":0,
             "Margin":"",

@@ -11,7 +11,13 @@
             "EDITTEXT": "TextBox",
             "DIRECTIVE": "",
             "FONT": "",
-            "BEGIN":""
+            "BEGIN":"",
+            "END":"",
+            "DIALOGEX":"Window",
+            "DIALOG":"Window",
+            "ICON":"Image",
+            "DEFPUSHBUTTON":"Button",
+            "STYLE":"Style"
         },
         "Attributes": {
             "id": "Name",
@@ -24,7 +30,9 @@
             "weight":"FontWeight",
             "italic":"FontStyle",
             "charset":"",
-            "filename":"Source"
+            "filename":"Source",
+            "style":"",
+            "nameID":"Name"
         },
         "Styles": {
             "WS_TABSTOP": "",

@@ -1,0 +1,90 @@
+{
+    "1": {
+        "Window": {
+            "attributes": {
+                "idm": 8,
+                "properties": {
+                    "Name": "IDD_FORMVIEW",
+                    "Width": 185,
+                    "Height": 93
+                },
+                "events": {},
+                "seq": 1
+            }
+        }
+    },
+    "3": {
+        "TextBlock": {
+            "attributes": {
+                "idm": 11,
+                "properties": {
+                    "Name": "IDC_STATIC",
+                    "Width": 19,
+                    "Height": 8
+                },
+                "events": {},
+                "seq": 3,
+                "_text": "\"Static\""
+            }
+        }
+    },
+    "4": {
+        "TextBox": {
+            "attributes": {
+                "idm": 11,
+                "properties": {
+                    "Name": "IDC_EDIT1",
+                    "Width": 40,
+                    "Height": 14
+                },
+                "events": {},
+                "seq": 4
+            }
+        }
+    },
+    "5": {
+        "Button": {
+            "attributes": {
+                "idm": 11,
+                "properties": {
+                    "Name": "IDC_BUTTON1",
+                    "Width": 50,
+                    "Height": 14
+                },
+                "events": {},
+                "seq": 5,
+                "_text": "\"Button1\""
+            }
+        }
+    },
+    "6": {
+        "CheckBox": {
+            "attributes": {
+                "idm": 3,
+                "properties": {
+                    "Name": "IDC_CHECK1",
+                    "Width": 39,
+                    "Height": 10
+                },
+                "events": {},
+                "seq": 6,
+                "_text": "\"Check1\""
+            }
+        }
+    },
+    "7": {
+        "RadioButton": {
+            "attributes": {
+                "idm": 11,
+                "properties": {
+                    "Name": "IDC_RADIO1",
+                    "Width": 38,
+                    "Height": 10
+                },
+                "events": {},
+                "seq": 7,
+                "_text": "\"Radio1\""
+            }
+        }
+    }
+}
