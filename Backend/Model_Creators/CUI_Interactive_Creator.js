@@ -19,7 +19,7 @@ function isEmpty(obj) {
   return true;
 }
 
-function generate_CUI_Model(abstract_Model) {
+function generate_CUI_Interactive(abstract_Model) {
   var popped_Element = '', popped_Seq = 0
   if (sequence === 0) {
     sequence++
@@ -31,8 +31,10 @@ function generate_CUI_Model(abstract_Model) {
     style_Model_Obj = {}
     event_Model_Obj = {}
 
-    if (key_Element_ID != "_attributes" && key_Element_ID == sequence) {
-
+    if (key_Element_ID != "_attributes" && key_Element_ID >= sequence) {
+      if(key_Element_ID > sequence){
+        sequence = key_Element_ID
+      }
       sequence++
       element_Obj = abstract_Model[key_Element_ID]
 
@@ -48,7 +50,7 @@ function generate_CUI_Model(abstract_Model) {
         for (key_Property_Name in child_Obj) {
 
           if (key_Property_Name != "_attributes") {
-            generate_CUI_Model(child_Obj)
+            generate_CUI_Interactive(child_Obj)
           }
           if (key_Property_Name === "_attributes") {
             popped_Obj = object_STACK.pop()
@@ -90,11 +92,16 @@ function set_Attributes(prop_Obj, popped_Seq) {
     if (key_Sub_Prop === "events") {
       event_Model_Obj[popped_Seq]._attributes.events = prop_Obj[key_Sub_Prop]
     }
+    if (key_Sub_Prop === "_text") {
+    //  console.log(prop_Obj[key_Sub_Prop] + JSON.stringify(prop_Obj))
+    style_Model_Obj[popped_Seq]._attributes.properties._text = prop_Obj[key_Sub_Prop]
+    //  console.log(JSON.stringify(event_Model_Obj))
+    }
   }
   style_Array.push(JSON.stringify(style_Model_Obj))
   event_Array.push(JSON.stringify(event_Model_Obj))
 }
-generate_CUI_Model(abstract_Model_Obj)
+generate_CUI_Interactive(abstract_Model_Obj)
 
 var STYLE_MODEL = {"STYLE": style_Array}
 var EVENT_MODEL = {"EVENT": event_Array}

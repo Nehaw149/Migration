@@ -1,4 +1,5 @@
 var fs = require('fs')
+var mkdirp = require('mkdirp')
 var XAML_Model_Obj = {}, XAML_Obj = {}, next_Obj = {}, html_JSON = {}
 var sequence = 0
 var key_XAML_Model = '', key_Child = '', key_tag = '', key_XAML_tag = '', key_next_Obj = '', key_temp_html = ''
@@ -7,6 +8,53 @@ var startStr = '', polymerStr = '', polymerImportStr = '', cui_html = '', polyme
 var end_Tag_Stack = [], Obj_Stack = []
 var XAML_Stack = [], Sequence_Stack = [], start_Stack = [], end_Stack = [], customElement_Stack = []
 var test_counter = 0
+
+var abstract_Model_Obj = JSON.parse(fs.readFileSync('../Models/AUI/Abstract_Model.json', 'utf-8'));
+var cui_Model_Str = '', style_Model_Str = '', seq_cui = 0, foldername = ''
+
+var key_Element_ID = '', key_Element_Name = '', key_Property_Name = ''
+var element_Obj = {}, elements_Child_Obj = {}
+
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)){
+      return false;
+    }
+  }
+  return true;
+}
+
+function generate_CUI_Model(abstract_Model) {
+  if (seq_cui === 0) { seq_cui++ }
+
+  for (key_Element_ID in abstract_Model) {
+    //  key_Element_ID: Many Siblings possible
+    if(key_Element_ID === "_attributes") {
+      //  delete if "_attributes" found
+      delete abstract_Model._attributes
+    }
+    if (key_Element_ID >= seq_cui ) {
+      element_Obj = abstract_Model[key_Element_ID]
+      for (key_Element_Name in element_Obj) {
+        //  key_Element_Name: ONLY one always
+        if(key_Element_ID != seq_cui){
+            seq_cui = key_Element_ID
+        }
+        seq_cui++
+        //  console.log(key_Element_Name)
+        elements_Child_Obj = element_Obj[key_Element_Name]
+
+        if(!isEmpty(elements_Child_Obj)){
+          generate_CUI_Model(elements_Child_Obj)
+        }
+      }
+    }
+  }
+}
+
+generate_CUI_Model(abstract_Model_Obj)
+fs.writeFileSync("../Models/CUI/CUI_Model.json", JSON.stringify(abstract_Model_Obj))
+
 
 cui_html = fs.readFileSync('../Templates/Template_CUI_HTML.html', 'utf-8')
 polymer_cui_html = fs.readFileSync('../Templates/Template_Polymer_CUI_HTML.html', 'utf-8')
@@ -24,17 +72,22 @@ function isEmpty(obj) {
     }
     return true;
 }
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+}
 
-function appendStart_tag(key_Tag_Str, start_Tag_Str) {
+
+function append_HTML_Start_tag(key_Tag_Str, start_Tag_Str) {
     var cui_start = ''
     if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
         //  getting a single tag
         var id_text = " id='id_" + sequence + "' ";
         cui_start = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].HTML.Start)
-        cui_start = cui_start.replace(/["]/g, "");
-
-        if (cui_start.includes(" ")) {
-            cui_start = cui_start.replace(" ", id_text)
+        
+        cui_start = cui_start.replace(/["]/g, "")
+        if (cui_start.includes(">")) {
+            var indexAngleBrace = cui_start.indexOf(">")
+            cui_start = cui_start.splice(indexAngleBrace, 0 ,id_text)
             start_Tag_Str = start_Tag_Str.concat(cui_start)
         }
     }
@@ -42,7 +95,7 @@ function appendStart_tag(key_Tag_Str, start_Tag_Str) {
 }
 
 // FOR POLYMER ELEMENT STARTTAG
-function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
+function append_Polymer_Start_tag(key_Tag_Str, polymer_Tag_Str) {
     var polymer_cui_start = '', polymer_import = '', replacementStr = '', temp_Custom_Element = '', id_text_Polymer = ''
     var emptyStr = '', fileName = '', cui_start = '', customElement_endTag = ''
     if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
@@ -78,15 +131,18 @@ function append_Poly_Start_tag(key_Tag_Str, polymer_Tag_Str) {
 
             polymer_cui_start = "<" + "xaml-" + key_Tag_Str.toLowerCase() + " >"
             //  write the custom element
-            fileName = "../Models/CUI/Polymer/CustomElements/" + "xaml-" + key_Tag_Str.toLowerCase() + ".html"
+            foldername = "../Models/CUI/Polymer/CUI/src/custom-elements/xaml-" + key_Tag_Str.toLowerCase()
+            mkdirp.sync(foldername)
+            fileName = "../Models/CUI/Polymer/CUI/src/custom-elements/xaml-" + key_Tag_Str.toLowerCase()+ "/xaml-" + key_Tag_Str.toLowerCase() + ".html"
             fs.writeFileSync(fileName, temp_Custom_Element)
-            polymer_import = "<link rel='import' href='" + fileName + "'>"
+            polymer_import = "<link rel='import' href='" + fileName + "'>\n"
         }
-
+        
         //  write ELEMENTS in the main HTML file
-        if (polymer_cui_start.includes(" ")) {
+        if (polymer_cui_start.includes(">")) {
             id_text_Polymer = " id='id_" + sequence + "' "
-            polymer_cui_start = polymer_cui_start.replace(" ", id_text_Polymer)
+            var indexAngleBrace = polymer_cui_start.indexOf(">")
+            polymer_cui_start = polymer_cui_start.splice(indexAngleBrace, 0 ,id_text_Polymer)
             polymer_Tag_Str = polymer_Tag_Str.concat(polymer_cui_start)
         }
 
@@ -105,7 +161,7 @@ String.prototype.replaceAll = function (search, replacement) {
 }
 
 // FOR POLYMER ELEMENT ENDTAG
-function append_Poly_End_tag(key_Tag_Str, polymer_Tag_Str) {
+function append_Polymer_End_tag(key_Tag_Str, polymer_Tag_Str) {
     var polymer_cui_end = '', emptyStr = ''
     if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
         polymer_cui_end = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].Polymer.End)
@@ -122,7 +178,7 @@ function append_Poly_End_tag(key_Tag_Str, polymer_Tag_Str) {
     return polymer_Tag_Str
 }
 
-function appendEnd_tag(key_Tag_Str, start_Tag_Str) {
+function append_HTML_End_tag(key_Tag_Str, start_Tag_Str) {
     var cui_end = '', polymer_cui_end = ''
     if (temp_xaml_html_Obj.hasOwnProperty(key_Tag_Str)) {
         cui_end = JSON.stringify(temp_xaml_html_Obj[key_Tag_Str].HTML.End)
@@ -131,11 +187,14 @@ function appendEnd_tag(key_Tag_Str, start_Tag_Str) {
     }
     return start_Tag_Str
 }
-function generate_CUI(element_Obj, xaml_Tag_Stack, Seq_Stack) {
+function generate_CUI_Stucture(element_Obj, xaml_Tag_Stack, Seq_Stack) {
     if (sequence === 0) { sequence++ }
     seq: for (key_XAML_Model in element_Obj) {
 
-        if (key_XAML_Model == sequence) {
+        if (key_XAML_Model >= sequence) {
+            if(key_XAML_Model > sequence){
+                sequence = key_XAML_Model
+            }
             XAML_Obj = element_Obj[key_XAML_Model]
 
             XAML: for (key_tag in XAML_Obj) {
@@ -145,23 +204,23 @@ function generate_CUI(element_Obj, xaml_Tag_Stack, Seq_Stack) {
                 if (temp_xaml_html_Obj.hasOwnProperty(key_tag)) {
                     Seq_Stack.push(sequence)
                     xaml_Tag_Stack.push(key_tag)
-                    startStr = appendStart_tag(key_tag, startStr)
-                    polymerStr = append_Poly_Start_tag(key_tag, polymerStr)
+                    startStr = append_HTML_Start_tag(key_tag, startStr)
+                    polymerStr = append_Polymer_Start_tag(key_tag, polymerStr)
                     sequence++
                 }
                 //  CHILD Loop call
                 if (child_Obj) {
                     for (key_Child in child_Obj) {
                         if (isEmpty(child_Obj) != true) {
-                            generate_CUI(child_Obj, xaml_Tag_Stack, Seq_Stack)
+                            generate_CUI_Stucture(child_Obj, xaml_Tag_Stack, Seq_Stack)
                         }
                     }
 
                 }
                 var endPop = xaml_Tag_Stack.pop()
                 if (temp_xaml_html_Obj.hasOwnProperty(endPop)) {
-                    startStr = appendEnd_tag(endPop, startStr)
-                    polymerStr = append_Poly_End_tag(endPop, polymerStr)
+                    startStr = append_HTML_End_tag(endPop, startStr)
+                    polymerStr = append_Polymer_End_tag(endPop, polymerStr)
                     Seq_Stack.pop()
                 }
             }
@@ -172,7 +231,7 @@ function generate_CUI(element_Obj, xaml_Tag_Stack, Seq_Stack) {
         }
     }
 }
-generate_CUI(cui_Obj, XAML_Stack, Sequence_Stack)
+generate_CUI_Stucture(cui_Obj, XAML_Stack, Sequence_Stack)
 
 String.prototype.splice = function (idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem))
@@ -187,4 +246,7 @@ var append_at_polymer_html_index = polymer_cui_html.indexOf("Mig-Proj'>");
 polymer_cui_html = polymer_cui_html.splice((append_at_polymer_html_index + 10), 0, polymerStr)
 append_at_polymer_html_index = polymer_cui_html.indexOf("<head>");
 polymer_cui_html = polymer_cui_html.splice((append_at_polymer_html_index + 6), 0, polymerImportStr)
-fs.writeFileSync("../Models/CUI/Polymer/CUI_Model_Polymer_HTML.html", polymer_cui_html)
+foldername = "../Models/CUI/Polymer/CUI/src/cui-final"
+mkdirp.sync(foldername)
+fs.writeFileSync("../Models/CUI/Polymer/CUI/src/cui-final/cui-final.html", polymer_cui_html)
+fs.writeFileSync("../Models/CUI/Polymer/CUI/index.html", polymer_cui_html)
