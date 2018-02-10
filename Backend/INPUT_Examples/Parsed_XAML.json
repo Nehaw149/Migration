@@ -146,17 +146,27 @@
                     ],
                     "ListBox": {
                         "_attributes": {
-                            "Margin": "10"
+                            "Margin": "10",
+                            "FontSize": "10"
                         },
                         "ListBoxItem": [
                             {
-                                "_text": "This item"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Latte Macchiato"
                             },
                             {
-                                "_text": "is Migrated"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Mocha"
                             },
                             {
-                                "_text": "for ListBox"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Latte"
                             }
                         ]
                     }

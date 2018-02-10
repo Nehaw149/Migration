@@ -50,10 +50,11 @@
             <RadioButton GroupName="ready">Yes</RadioButton>
             <RadioButton GroupName="ready">No</RadioButton>
             <RadioButton GroupName="ready" IsChecked="True">Maybe</RadioButton>
-            <ListBox Margin="10" FontSize="10">
-                <ListBoxItem Background="Aqua">Latte Macchiato</ListBoxItem>
-                <ListBoxItem Background="Aqua">Mocha</ListBoxItem>
-                <ListBoxItem Background="Aqua">Latte</ListBoxItem>
+
+            <ListBox Margin="10">
+                <ListBoxItem>This item</ListBoxItem>
+                <ListBoxItem>is Migrated</ListBoxItem>
+                <ListBoxItem>for ListBox</ListBoxItem>
             </ListBox>
         </StackPanel>
         <Image DockPanel.Dock="Right" Margin="10" Source=""></Image>

@@ -126,6 +126,17 @@
                     "style": ""
                 },
                 "events": {}
+            },
+            "LISTBOX":{
+                "idm": 8,
+                "properties": {
+                    "id": "",
+                    "x": "",
+                    "y": "",
+                    "width": "",
+                    "height": ""
+                },
+                "events": {}
             }
         },
         "Resource": {
@@ -156,14 +167,16 @@
                 "properties": {
                     "nameID": "",
                     "filename": ""
-                }
+                },
+                "events": {}
             },
             "FONT": {
                 "idm": 5,
                 "properties": {
                     "nameID": "",
                     "filename": ""
-                }
+                },
+                "events": {}
             }
         },
         "com_attr": {

@@ -32,9 +32,9 @@ String.prototype.replaceAll = function (search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 }
 
-var input_RC_Obj = JSON.parse(fs.readFileSync("../INPUT_Examples/JSONs/Final_ResourceFile.json", "utf8"))
-var dirAttObject = {}, stateAttObj = {}
-var input_RC_String = JSON.stringify(input_RC_Obj)
+var parsed_RC_Obj = JSON.parse(fs.readFileSync("../INPUT_Examples/Final_ResourceFile.json", "utf8"))
+var directive_Obj = {}, state_Obj = {}
+var input_RC_String = JSON.stringify(parsed_RC_Obj)
 
 var emptyString = '",","'
 var nullArrayElementString = ',null'
@@ -47,24 +47,26 @@ input_RC_String = input_RC_String.replaceAll(emptyString, '"')
 input_RC_String = JSON.stringify(JSON.parse(input_RC_String.replaceAll(nullArrayElementString, '')))
 input_RC_String = input_RC_String.replaceAll('"NL"', '')
 input_RC_String = input_RC_String.replace(/,\[\]/g, '')
-input_RC_Obj = JSON.parse(input_RC_String)
-fs.writeFileSync("../INPUT_Examples/JSONs/Final_ResourceFileUpdated.json", input_RC_String)
+parsed_RC_Obj = JSON.parse(input_RC_String)
+fs.writeFileSync("../INPUT_Examples/Final_ResourceFileUpdated.json", input_RC_String)
 
-var dirAttObject = {}, stateAttObj = {}, elementStack = [], UI_RC_Obj_Stack = [], UI_XAML_Obj_Stack = []
+var elementStack = [], UI_RC_Obj_Stack = [], UI_XAML_Obj_Stack = []
+var parentElement = '', parentSeq = 0, final_RC_AUI_Model = {}
 
-formatting_RC_input(input_RC_Obj)
-function formatting_RC_input(RC_Obj) {
+create_AUI_RC(parsed_RC_Obj)
+function create_AUI_RC(RC_Obj) {
     for (var key_obj_type in RC_Obj.Parsed_RC) {
         if (key_obj_type == "Directive_Obj") {
-            dirAttObject = RC_Obj.Parsed_RC[key_obj_type]
-            dir_Formatting(dirAttObject)
+            directive_Obj = RC_Obj.Parsed_RC[key_obj_type]
+            directive_Formatting(directive_Obj)
         }
         if (key_obj_type == "Block_elements_Obj") {
-            stateAttObj = RC_Obj.Parsed_RC[key_obj_type]
-            state_Seperation(stateAttObj)
+            state_Obj = RC_Obj.Parsed_RC[key_obj_type]
+            state_Seperation(state_Obj)
         }
     }
     map_RC_XAML_Model()
+    fs.writeFileSync("../Models/AUI/Abstract_Model.json", JSON.stringify(final_RC_AUI_Model))
 }
 function isEmpty(obj) {
     for (var prop in obj) {
@@ -122,18 +124,17 @@ function map_RC_XAML() {
 
                     if (newElementName != "") {
                         newElement_Obj = { [newElementName]: {} }
-                        newElement_Obj[newElementName].attributes = UI_XAML_Obj[key_EachObj_Name]
+                        newElement_Obj[newElementName]._attributes = UI_XAML_Obj[key_EachObj_Name]
 
                         // format _text properly
-                        newElement_Obj[newElementName].attributes._text = UI_XAML_Obj[key_EachObj_Name].properties._text
-                        delete newElement_Obj[newElementName].attributes.properties._text
+                        newElement_Obj[newElementName]._attributes._text = UI_XAML_Obj[key_EachObj_Name].properties._text
+                        delete newElement_Obj[newElementName]._attributes.properties._text
                         //console.log(JSON.stringify(newElement_Obj))
                     }
                     else {
                         //TO DO
                         //    console.log("ERROR:Mapping: XAML-RC Elements for " + key_EachObj_Name)
                         newElement_Obj = {}
-                        //UI_XAML_Obj_Stack.push(newElement_Obj)
                     }
                 }
             }
@@ -148,90 +149,67 @@ function map_RC_XAML() {
 }
 
 function map_RC_XAML_Model() {
-    var final_RC_AUI_Model = {}, final_ObjMapped = {}, sequence = '', finalRC_Stack = []
-    var xamlMappedEle_Stack = map_ElementStack()
+    var final_ObjMapped = {}, sequence = '', finalRC_Stack = []
+    var xamlMappedEle_Stack = map_RC_ElementStack()
     var xamlMappedEleProp_Stack = map_RC_XAML()
-    var singleXAMLEle = '', singleXAML_Obj = {}
+    var singleXAMLEle = '', singleXAML_Obj = {}, countBegin = 0, countEnd = 0, countChild = 0
+    var sequenceStack = []
+    var parentElementStack = [], parentSeqStack = []
     for (var countMapped_Ele = 0; countMapped_Ele < elementStack.length; countMapped_Ele++) {
         singleXAMLEle = xamlMappedEle_Stack[countMapped_Ele]
         singleXAML_Obj = xamlMappedEleProp_Stack[countMapped_Ele]
-        //console.log(JSON.stringify(singleXAML_Obj))
-        if (isEmpty(singleXAML_Obj) === false) {
 
-            sequence = singleXAML_Obj[singleXAMLEle].attributes.seq
-            final_ObjMapped = { [sequence]: {} }
-
-            if (singleXAMLEle == 'BEGIN' && singleXAML_Obj == {}) {
-            }
-            if (singleXAMLEle == 'END' && singleXAML_Obj == {}) {
-            }
-            if (singleXAML_Obj.hasOwnProperty(singleXAMLEle)) {
-                //    console.log(singleXAMLEle + JSON.stringify(singleXAML_Obj))
-                final_ObjMapped[sequence] = singleXAML_Obj
-            }
-            else {
-                // TO Do Error: Unmapped elements can't be considered for AUI MODEL
-                //final_ObjMapped = {}
-            }
-        }else{
-            // TO Do Error: Unmapped elements can't be considered for AUI MODEL
-            final_ObjMapped = {}
+        if (isEmpty(singleXAML_Obj) != true) {
+            sequence = singleXAML_Obj[singleXAMLEle]._attributes.seq
+            sequenceStack.push(sequence)
         }
-        finalRC_Stack.push(final_ObjMapped)
-        //console.log(JSON.stringify(final_ObjMapped))
-    }
-    singleXAMLEle = '', singleXAML_Obj = {}, countBegin = 0, countEnd = 0, countChild = 0
-    for (var countMapped_Ele = 0; countMapped_Ele < elementStack.length; countMapped_Ele++) {
-        singleXAMLEle = xamlMappedEle_Stack[countMapped_Ele]
-        singleXAML_Obj = xamlMappedEleProp_Stack[countMapped_Ele]
-        
-        if(isEmpty(singleXAML_Obj) != true){
-            sequence = singleXAML_Obj[singleXAMLEle].attributes.seq
+        else {
+            sequenceStack.push("")
+        }
 
-            final_RC_AUI_Model[sequence] = {}
-            final_RC_AUI_Model[sequence][singleXAMLEle] = {}
+        if (singleXAMLEle == 'BEGIN') {
+            for (var parLen = countMapped_Ele - 1; parLen > -1; parLen--) {
 
-            if(singleXAMLEle == 'BEGIN'){
-                var parentElement = singleXAMLEle(countMapped_Ele - 1)
-            // var parentObject = 
-                countBegin++
-                countChild++
-                //for( var keyfinal_RC_AUI_Model
+                parentElement = xamlMappedEle_Stack[parLen]
+                parentSeq = sequenceStack[parLen]
+                if (parentElement != '' && parentSeq != '') {
+                    parentElementStack.push(parentElement)
+                    parentSeqStack.push(parentSeq)
+                    break
+                }
             }
-            if(singleXAMLEle == 'END'){
-                countEnd++
-                countChild--
-                //final_RC_AUI_Model
-            }
-            if(singleXAMLEle != 'BEGIN' && singleXAMLEle != 'END' && singleXAMLEle != ''){
-                if(countChild == 0){
-                    final_RC_AUI_Model[sequence][singleXAMLEle] = singleXAML_Obj[singleXAMLEle]
-                }
-                if(countChild > 0){
-                    final_RC_AUI_Model[sequence-1][parentElement] = singleXAML_Obj[singleXAMLEle]
-                }
-                if(countChild < 0){
+            countBegin++
+            countChild++
+        }
+        if (singleXAMLEle == 'END') {
+            countEnd++
+            countChild--
+            //final_RC_AUI_Model
+        }
+        if (singleXAMLEle != 'BEGIN' && singleXAMLEle != 'END' && singleXAMLEle != '') {
 
-                }
-            }            
+            if (countChild == 0) {
+                final_RC_AUI_Model = { [sequence]: singleXAML_Obj }
+            }
+            if (countChild > 0) {
+                var sequencedEle = { [sequence]: singleXAML_Obj }
+                final_RC_AUI_Model[parentSeq][parentElement][sequence] = singleXAML_Obj
+            }
         }
     }
-    console.log(JSON.stringify(final_RC_AUI_Model))
-
+    //console.log(JSON.stringify(final_RC_AUI_Model))
 }
 
-function map_ElementStack() {
+function map_RC_ElementStack() {
     var mappedEleStack = []
 
     for (var count_Ele = 0; count_Ele < elementStack.length; count_Ele++) {
         if ((template_RC_XAML.rc.Elements).hasOwnProperty(elementStack[count_Ele])) {
             if (elementStack[count_Ele] == 'BEGIN') {
                 mappedEleStack.push('BEGIN')
-                //    console.log(mappedEleStack)
             }
             if (elementStack[count_Ele] == 'END') {
                 mappedEleStack.push('END')
-                //    console.log(mappedEleStack)
             }
             if (elementStack[count_Ele] != 'BEGIN' && elementStack[count_Ele] != 'END') {
                 mappedEleStack.push(template_RC_XAML.rc.Elements[elementStack[count_Ele]])
@@ -250,7 +228,7 @@ function map_ElementStack() {
     return mappedEleStack
 }
 
-function dir_Formatting(dirAttObject) {
+function directive_Formatting(dirAttObject) {
     var key_dir, singleDirObj, dirName, dirText, dirObjDetails;
     for (var i = 0; i < dirAttObject.length; i++) {
         dirName = 'Directive_' + i
@@ -278,7 +256,6 @@ function state_Seperation(UI_State_Obj) {
         for (var firstLoop = 0; firstLoop < UI_State_len; firstLoop++) {
             var single_UI_Obj = UI_State_Obj[firstLoop]
             format_UI_Element(single_UI_Obj)
-            //    console.log(JSON.stringify(single_UI_Obj))
         }
     }
 }
@@ -445,7 +422,6 @@ function formatAttributeArray(ele_Attr) {
             stateAttributes.push(ele_Attr_Array[arr])
         }
     }
-
     //console.log(stateAttributes)
     return stateAttributes
 }

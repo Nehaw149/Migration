@@ -23,8 +23,8 @@
     },
     "Label": {
         "HTML": {
-            "Start": "<div><label class='Label'>",
-            "End": "</label></div>"
+            "Start": "<label class='Label'>",
+            "End": "</label>"
         },
         "Polymer": {
             "Start": "<iron-label class='Label'>",
@@ -45,8 +45,8 @@
     },
     "PasswordBox": {
         "HTML": {
-            "Start": "<div><input type='password' class='PasswordBox'>",
-            "End": "</div>"
+            "Start": "<input type='password' class='PasswordBox'>",
+            "End": "</input>"
         },
         "Polymer": {
             "Start": "<paper-input type='password' class='PasswordBox'>",
@@ -56,30 +56,30 @@
     },
     "TextBlock": {
         "HTML": {
-            "Start": "<div><textarea class='TextBlock'>",
-            "End": "</textarea></div>"
+            "Start": "<textarea class='TextBlock'>",
+            "End": "</textarea>"
         },
         "Polymer": {
-            "Start": "<paper-textarea class='TextBlock'>",
-            "End": "</paper-textarea>",
-            "Import": "<link rel='import' href='bower_components/paper-textarea/paper-textarea.html'>"
+            "Start": "",
+            "End": "",
+            "Import": ""
         }
     },
     "RadioButton": {
         "HTML": {
-            "Start": "<div><input type='radio' class='RadioButton'>",
-            "End": "</div>"
+            "Start": "<input type='radio' class='RadioButton'>",
+            "End": "</input>"
         },
         "Polymer": {
             "Start": "<paper-radio-group><paper-radio-button class='RadioButton'>",
             "End": "</paper-radio-button></paper-radio-group>",
-            "Import": "<link rel='import' href='bower_components/paper-radio-button/paper-radio-button.html'><link rel='import' href='bower_components/paper-radio-group/paper-radio-group.html'>"
+            "Import": "<link rel='import' href='bower_components/paper-radio-button/paper-radio-button.html'><link rel='import' href='paper-radio-group/paper-radio-group.html'>"
         }
     },
     "CheckBox": {
         "HTML": {
-            "Start": "<div><input type='checkbox' class='CheckBox'>",
-            "End": "</div>"
+            "Start": "<input type='checkbox' class='CheckBox'>",
+            "End": "</input>"
         },
         "Polymer": {
             "Start": "<paper-checkbox class='CheckBox'>",
@@ -89,8 +89,8 @@
     },
     "Button": {
         "HTML": {
-            "Start": "<div><button class='Button'>",
-            "End": "</button></div>"
+            "Start": "<button class='Button'>",
+            "End": "</button>"
         },
         "Polymer": {
             "Start": "<paper-button class='Button'>",
@@ -100,8 +100,8 @@
     },
     "TextBox": {
         "HTML": {
-            "Start": "<div><input type='text' class='TextBox'>",
-            "End": "</div>"
+            "Start": "<input type='text' class='TextBox'>",
+            "End": "</input>"
         },
         "Polymer": {
             "Start": "<paper-input class='TextBox'>",
@@ -111,8 +111,8 @@
     },
     "Image": {
         "HTML": {
-            "Start": "<div><img class='Image'>",
-            "End": "</div>"
+            "Start": "<img class='Image'>",
+            "End": ""
         },
         "Polymer": {
             "Start": "<iron-image class='Image'>",
@@ -122,7 +122,7 @@
     },
     "Paragraph": {
         "HTML": {
-            "Start": "<p>",
+            "Start": "<p class='Paragraph'>",
             "End": "</p>"
         },
         "Polymer": {
@@ -131,15 +131,26 @@
             "Import": ""
         }
     },
-    "Style": {
+    "ListBox": {
         "HTML": {
-            "Start": "<style>",
-            "End": "</style>"
+            "Start": "<ul class='ListBox'>",
+            "End": "</ul>"
         },
         "Polymer": {
-            "Start": "",
-            "End": "",
-            "Import": ""
+            "Start": "<paper-listbox>",
+            "End": "</paper-listbox>",
+            "Import": "<link rel='import' href='bower_components/paper-listbox/paper-listbox.html'>"
+        }
+    },
+    "ListBoxItem": {
+        "HTML": {
+            "Start": "<li class='ListBoxItem'>",
+            "End": "</li>"
+        },
+        "Polymer": {
+            "Start": "<paper-item>",
+            "End": "</paper-item>",
+            "Import": "<link rel='import' href='bower_components/paper-item/paper-item.html'>"
         }
     }
 }
