@@ -1,14 +1,18 @@
 var fs = require('fs')
 var convert = require('xml-js')
 
+var common_Modules  = require("../CommonModules/common_Modules.js")
+var readFileAt = "../CommonModules/errorLog.txt"
+var writeFileAt = "../CommonModules/errorLog.txt"
+
 var sequence = 0
 var migratedXAMLObj = {}
 var sequence = 0
 var count = 0
 
-var json_xmljs = fs.readFileSync('../INPUT_Examples/XAML_Test2.xaml', 'utf-8')
+var json_xmljs = fs.readFileSync('../INPUT_Examples/XAML_Test.xaml', 'utf-8')
 var XAML_Obj = convert.xml2json(json_xmljs, { compact: true, spaces: 4 })
-fs.writeFileSync('../INPUT_Examples/JSONs/Parsed_XAML2.json', XAML_Obj)
+fs.writeFileSync('../INPUT_Examples/Parsed_XAML.json', XAML_Obj)
 
 var XAML_ob = JSON.parse(XAML_Obj)
 var templateXAMLob = JSON.parse(fs.readFileSync('../Templates/Template_XAML_tags.json', 'utf-8'))
@@ -18,7 +22,7 @@ var temp_com_events_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.com_even
 // var temp_idm_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.idm))
 var temp_ele_Obj = JSON.parse(JSON.stringify(templateXAMLob.xaml.Elements))
 
-function create_AUI_Sequential(XAMLob, migratedXAMLObj){
+function create_AUI(XAMLob, migratedXAMLObj){
 	//	console.log(XAMLob)
 	for(var keys_XAML in XAMLob) {
 		if(temp_ele_Obj.hasOwnProperty(keys_XAML)){
@@ -64,7 +68,7 @@ function setAttributes(windowAttObject, migratedXAMLObj, sequence, element){
 			migratedXAMLObj[sequence][element]._attributes._text = JSON.parse(JSON.stringify(windowAttObject[key]))
 		}else {
 			// recursion
-			create_AUI_Sequential(JSON.parse(JSON.stringify(windowAttObject)), migratedXAMLObj[sequence][element])
+			create_AUI(JSON.parse(JSON.stringify(windowAttObject)), migratedXAMLObj[sequence][element])
 			return
 		}
 	}
@@ -118,6 +122,6 @@ function getAttributeObjForAnElement(attributes, xaml_element){
 	return clearValue(att_obj)
 }
 
-create_AUI_Sequential(XAML_ob, migratedXAMLObj)
+create_AUI(XAML_ob, migratedXAMLObj)
 fs.writeFileSync("../Models/AUI/Abstract_Model.json",JSON.stringify(migratedXAMLObj))
 

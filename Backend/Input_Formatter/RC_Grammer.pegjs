@@ -27,10 +27,13 @@ LoopStart = beg child:Element+ {begin_Count++; children_Count++; child_Count++; 
 LoopEnd = end {end_Count++; child_Count--; return {['LoopEnd_'+ end_Count]:end_Count};}
 Element = UI_Element (UI_Val)* nl+ 
 UI_Element = space* Block_element_name:word_alnumsp {if(Block_element_name==='BEGIN'){begin_Count++;children_Count++; child_Count++;return {['LoopStart_'+ begin_Count]:begin_Count}} if(Block_element_name==='END'){end_Count++; child_Count--; return {['LoopEnd_'+ end_Count]:end_Count};} if(child_Count<0){flag = 1;} UI_Element_Count++; UI_Element_Obj = {['UI_Element_Obj'+UI_Element_Count]:Block_element_name}; return UI_Element_Obj;}
-UI_Val = space+ Element_val:(word_alnumsp comma?)* {UI_Val_Count++; UI_Val_Obj = {['_attributes_Obj'+ UI_Val_Count]:Element_val}; return UI_Val_Obj}
+UI_Val = space+ Element_val:word_comma* {UI_Val_Count++; UI_Val_Obj = {['_attributes_Obj'+ UI_Val_Count]:Element_val}; return UI_Val_Obj}
+word_comma = word_alnumsp comma?
+
 word = wo:letter+ {return wo.join("")}
 word_alnum = al:alnum+ {return al.join("")}
 word_alnumsp = alsp:alnumsp+ {return alsp.join("")}
+
 
 beg = space* ([{]) space* nl+
 end = space* ([}]) space* nl+

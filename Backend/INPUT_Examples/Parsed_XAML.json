@@ -5,8 +5,8 @@
             "xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
             "xmlns:x": "http://schemas.microsoft.com/winfx/2006/xaml",
             "Title": "MainWindow",
-            "Height": "350",
-            "Width": "525"
+            "Height": "750",
+            "Width": "300"
         },
         "DockPanel": {
             "_attributes": {
@@ -15,7 +15,7 @@
             "Label": {
                 "_attributes": {
                     "DockPanel.Dock": "Top",
-                    "FontSize": "12",
+                    "FontSize": "26",
                     "FontWeight": "Black",
                     "FontStyle": "Normal"
                 },
@@ -28,31 +28,12 @@
                         "Margin": "10",
                         "HorizontalAlignment": "Left"
                     },
-                    "Label": [
-                        {
-                            "_attributes": {
-                                "Content": "Username",
-                                "HorizontalAlignment": "Left",
-                                "Margin": "5,5,0,0",
-                                "Width": "60"
-                            }
-                        },
-                        {
-                            "_attributes": {
-                                "Content": "Password",
-                                "HorizontalAlignment": "Left",
-                                "Margin": "5,5,0,0",
-                                "Width": "60"
-                            }
-                        }
-                    ],
-                    "TextBox": {
+                    "Label": {
                         "_attributes": {
-                            "Name": "inputBox",
-                            "Height": "15",
-                            "Width": "100",
-                            "MaxLength": "8",
-                            "HorizontalAlignment": "Left"
+                            "Content": "Password",
+                            "HorizontalAlignment": "Left",
+                            "Margin": "5,5,0,0",
+                            "Width": "60"
                         }
                     },
                     "PasswordBox": {
@@ -146,17 +127,27 @@
                     ],
                     "ListBox": {
                         "_attributes": {
-                            "Margin": "10"
+                            "Margin": "10",
+                            "FontSize": "10"
                         },
                         "ListBoxItem": [
                             {
-                                "_text": "This item"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Latte Macchiato"
                             },
                             {
-                                "_text": "is Migrated"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Mocha"
                             },
                             {
-                                "_text": "for ListBox"
+                                "_attributes": {
+                                    "Background": "Aqua"
+                                },
+                                "_text": "Latte"
                             }
                         ]
                     }

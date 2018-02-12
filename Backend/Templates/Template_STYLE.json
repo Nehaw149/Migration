@@ -10,7 +10,6 @@
             "Height":"height",
             "Width":"width",
             "LastChildFill": "NONE",
-            "DockPanel.Dock":"NONE",
             "Margin":"margin",
             "HorizontalAlignment":"NONE",
             "VerticalAlignment":"vertical-align"
@@ -20,16 +19,20 @@
             "PasswordChar": "NONE",
             "MaxLength": "maxlength",
             "Text": "innerHTML",
+            "_text":"innerHTML",
             "Source": "src",
             "Name": "name",
-            "GroupName":"NONE",
+            "GroupName":"name",
             "Title": "title",
             "IsEnabled": "disabled",
             "x:Class":"NONE",
             "xmlns":"NONE",
             "xmlns:x":"NONE",
             "IsChecked":"checked",
-            "IsThreeState":"NONE"
+            "IsThreeState":"NONE",
+            "Property":"NONE",
+            "Value":"NONE",
+            "TargetType":"NONE"
         }
     }
 }

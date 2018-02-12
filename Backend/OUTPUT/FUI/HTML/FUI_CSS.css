@@ -1,5 +1,11 @@
-#id_1 {height: 300px ; width: 350px ; }
+#id_1 {height: 750px ; width: 300px ; }
+#id_21 {margin: 10px ; }
 #id_12 {margin: 10px ; }
+#id_17 {font-size: 10px ; margin: 10px ; }
+#id_20 {background-color: Aqua; }
+#id_19 {background-color: Aqua; }
+#id_18 {background-color: Aqua; }
+#id_13 {font-weight: Bold; }
 #id_4 {margin: 10px ; }
 #id_11 {color: Red; margin: 5px ; width: 150px ; }
 #id_10 {margin: 5px ; }
@@ -8,4 +14,4 @@
 #id_7 {background-color: Beige; margin: 5px ; }
 #id_6 {height: 15px ; width: 100px ; }
 #id_5 {margin: 5px, 5px, 0px, 0px ; width: 60px ; }
-#id_3 {font-size: 12px ; font-weight: Black; font-style: Normal; }
+#id_3 {font-size: 26px ; font-weight: Black; font-style: Normal; }

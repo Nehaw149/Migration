@@ -1,81 +1,36 @@
 var fs = require("fs")
+
 var common_Modules  = require("../CommonModules/common_Modules.js")
 var readFileAt = "../CommonModules/errorLog.txt"
 var writeFileAt = "../CommonModules/errorLog.txt"
 
 common_Modules.cleanup(writeFileAt)
 
-//Feature Not supported
-//var ASTY = require("asty")
-//var peg = require("pegjs")
-//var PEGUtil = require("pegjs-util")
-// var asty = new ASTY()
-// var parser = PEG.generate(fs.readFileSync("./RC_Grammer.pegjs", "utf8"))
-// var result = PEGUtil.parse(parser, fs.readFileSync("../INPUT_Examples/RC_Test_1.txt", "utf8"), {
-//     startRule: "ExpectedSequence",
-//     makeAST: function (line, column, offset, args) {
-//         return asty.create.apply(asty, args).pos(line, column, offset)
-//     }
-// })
-// if (result.error !== null)
-//     console.log("ERROR: Parsing Failure:\n" +
-//         PEGUtil.errorMessage(result.error, true).replace(/^/mg, "ERROR: "))
-// else
-//     console.log(result.ast.dump().replace(/\n$/, ""))
-
-// var grammar = fs.readFileSync("./RC_Grammer.pegjs", "utf8")
-// var ast, parser;
-
-// ast = PEG.parser.parse(grammar)
-// parser = PEG.compiler.compile(ast)
-// parser = PEG.generate(grammar)
-
-//var inputString = fs.readFileSync("../INPUT_Examples/Final_ResourceFile.rc","utf8")
-// console.log(parser.parse(inputString))
-
-//var grammer = fs.readFileSync("./RC_Grammer.pegjs", "utf8")
-//console.log(grammer)
-
-//var parser = peg.generate(grammer)
-//var parsed_RC_Obj1 = parser.parse(inputString)
-//console.log(parsed_RC_Obj1)
-
 String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
 }
 
-var parsed_RC_Obj = JSON.parse(fs.readFileSync("../INPUT_Examples/Final_ResourceFile.json", "utf8"))
-var directive_Obj = {}, state_Obj = {}
-var input_RC_String = JSON.stringify(parsed_RC_Obj)
-
-var emptyString = '",","'
-var nullArrayElementString = ',null'
+var dirAttObject = {}, stateAttObj = {}, elementStack = [], UI_RC_Obj_Stack = [], UI_XAML_Obj_Stack = []
+var parentElement = '', parentSeq = 0, final_RC_AUI_Model = {}
 var elementIndex = 0, rc_sequence = 0
+
 var template_RC = JSON.parse(fs.readFileSync("../Templates/Template_RC_tags.json", "utf-8"))
 var template_RC_XAML = JSON.parse(fs.readFileSync("../Templates/Template_XAML_RC_Mapping.json", "utf-8"))
 var template_XAML = JSON.parse(fs.readFileSync("../Templates/Template_XAML_tags.json", "utf-8"))
 
-input_RC_String = input_RC_String.replaceAll(emptyString, '"')
-input_RC_String = JSON.stringify(JSON.parse(input_RC_String.replaceAll(nullArrayElementString, '')))
-input_RC_String = input_RC_String.replaceAll('"NL"', '')
-input_RC_String = input_RC_String.replace(/,\[\]/g, '')
-parsed_RC_Obj = JSON.parse(input_RC_String)
-fs.writeFileSync("../INPUT_Examples/Final_ResourceFileUpdated.json", input_RC_String)
+input_RC_Obj = JSON.parse(fs.readFileSync("../INPUT_Examples/Final_ResourceFileUpdated.json", "utf-8"))
 
-var elementStack = [], UI_RC_Obj_Stack = [], UI_XAML_Obj_Stack = []
-var parentElement = '', parentSeq = 0, final_RC_AUI_Model = {}
-
-create_AUI_RC(parsed_RC_Obj)
-function create_AUI_RC(RC_Obj) {
+create_AUI_RC_input(input_RC_Obj)
+function create_AUI_RC_input(RC_Obj) {
     for (var key_obj_type in RC_Obj.Parsed_RC) {
         if (key_obj_type == "Directive_Obj") {
-            directive_Obj = RC_Obj.Parsed_RC[key_obj_type]
-            directive_Formatting(directive_Obj)
+            dirAttObject = RC_Obj.Parsed_RC[key_obj_type]
+            dir_Formatting(dirAttObject)
         }
         if (key_obj_type == "Block_elements_Obj") {
-            state_Obj = RC_Obj.Parsed_RC[key_obj_type]
-            state_Seperation(state_Obj)
+            stateAttObj = RC_Obj.Parsed_RC[key_obj_type]
+            state_Seperation(stateAttObj)
         }
     }
     map_RC_XAML_Model()
@@ -127,7 +82,8 @@ function map_RC_XAML() {
                         //To Do Error Map Property between XAML-RC
                         delete UI_XAML_Obj[eleName].properties[key_EachObj_Prop]
                         //    console.log("ERROR:Mapping: XAML-RC Properties for " + key_EachObj_Prop)
-                        common_Modules.errorLog(("ERROR: Format_RC_Input.js:Mapping: XAML-RC Properties for  " + key_EachObj_Prop), readFileAt, writeFileAt)
+                        common_Modules.errorLog(("ERROR: AUI_Creator_RC.js: Mapping: XAML-RC Properties for\t" + key_EachObj_Prop), readFileAt, writeFileAt)
+
                     }
                 }
             }
@@ -149,7 +105,7 @@ function map_RC_XAML() {
                         //TO DO
                         //    console.log("ERROR:Mapping: XAML-RC Elements for " + key_EachObj_Name)
                         newElement_Obj = {}
-                        common_Modules.errorLog(("ERROR: Format_RC_Input.js:Mapping: XAML-RC Elements for " + key_EachObj_Name), readFileAt, writeFileAt)
+                        common_Modules.errorLog(("ERROR: AUI_Creator_RC.js: Mapping: XAML-RC Elements for\t" + key_EachObj_Name), readFileAt, writeFileAt)
 
                     }
                 }
@@ -166,7 +122,7 @@ function map_RC_XAML() {
 
 function map_RC_XAML_Model() {
     var final_ObjMapped = {}, sequence = '', finalRC_Stack = []
-    var xamlMappedEle_Stack = map_RC_ElementStack()
+    var xamlMappedEle_Stack = map_ElementStack()
     var xamlMappedEleProp_Stack = map_RC_XAML()
     var singleXAMLEle = '', singleXAML_Obj = {}, countBegin = 0, countEnd = 0, countChild = 0
     var sequenceStack = []
@@ -216,7 +172,7 @@ function map_RC_XAML_Model() {
     //console.log(JSON.stringify(final_RC_AUI_Model))
 }
 
-function map_RC_ElementStack() {
+function map_ElementStack() {
     var mappedEleStack = []
 
     for (var count_Ele = 0; count_Ele < elementStack.length; count_Ele++) {
@@ -234,7 +190,8 @@ function map_RC_ElementStack() {
         else {
             //TO DO Element not mapped to XAML Error
             //console.log(elementStack[count_Ele])
-            common_Modules.errorLog("ERROR: Format_RC_Input.js:Mapping: Element not mapped to XAML", readFileAt, writeFileAt)
+            common_Modules.errorLog("ERROR: AUI_Creator_RC.js:Element not mapped to XAML\t", readFileAt, writeFileAt)
+
             if (count_Ele > -1) {
                 elementStack.splice(count_Ele, 1)
             }
@@ -244,7 +201,7 @@ function map_RC_ElementStack() {
     return mappedEleStack
 }
 
-function directive_Formatting(dirAttObject) {
+function dir_Formatting(dirAttObject) {
     var key_dir, singleDirObj, dirName, dirText, dirObjDetails;
     for (var i = 0; i < dirAttObject.length; i++) {
         dirName = 'Directive_' + i
@@ -392,7 +349,7 @@ function setDefinition(formatted_ele_Attr, template_Obj, ele_UI, ele_Sequence) {
             //    console.log(formatted_ele_Attr)
         }
         else {
-           // errorLog.errorLog(("ERROR:Element not mapped to XAML" + key_rc_Elements), readFileAt, writeFileAt)
+            //TO DO Error Handling
         }
     } return concrete_Obj
 }

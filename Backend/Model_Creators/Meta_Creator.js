@@ -136,6 +136,11 @@ chai.tv4.addSchema("StackPanel.json", schema);
 chai.tv4.addSchema("TextBlock.json", schema);
 chai.tv4.addSchema("TextBox.json", schema);
 chai.tv4.addSchema("Window.json", schema);
+chai.tv4.addSchema("Paragraph.json", schema);
+chai.tv4.addSchema("Style.json", schema);
+chai.tv4.addSchema("ListBox.json", schema);
+chai.tv4.addSchema("ListBoxItem.json", schema);
+
 
 expect(correct_AUI).to.be.jsonSchema(schema);
 

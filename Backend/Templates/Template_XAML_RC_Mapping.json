@@ -11,13 +11,13 @@
             "EDITTEXT": "TextBox",
             "DIRECTIVE": "",
             "FONT": "",
-            "BEGIN":"",
-            "END":"",
-            "DIALOGEX":"Window",
-            "DIALOG":"Window",
-            "ICON":"Image",
-            "DEFPUSHBUTTON":"Button",
-            "STYLE":"Style"
+            "BEGIN": "",
+            "END": "",
+            "DIALOGEX": "Window",
+            "DIALOG": "Window",
+            "ICON": "Image",
+            "DEFPUSHBUTTON": "Button",
+            "LISTBOX":"Listbox"
         },
         "Attributes": {
             "id": "Name",
@@ -25,24 +25,24 @@
             "height": "Height",
             "x": "",
             "y": "",
-            "pointsize":"FontSize",
-            "typeface":"FontFamily",
-            "weight":"FontWeight",
-            "italic":"FontStyle",
-            "charset":"",
-            "filename":"Source",
-            "style":"",
-            "nameID":"Name"
+            "pointsize": "FontSize",
+            "typeface": "FontFamily",
+            "weight": "FontWeight",
+            "italic": "FontStyle",
+            "charset": "",
+            "filename": "Source",
+            "style": "",
+            "nameID": "Name"
         },
         "Styles": {
             "WS_TABSTOP": "",
-            "WS_CHILD":"",
-            "WS_VISIBLE":"",
-            "WS_CAPTION":"",
+            "WS_CHILD": "",
+            "WS_VISIBLE": "",
+            "WS_CAPTION": "",
             "WS_VSCROLL": "",
             "TOPMARGIN": "",
             "BOTTOMMARGIN": ""
         },
-        "Events":{}
+        "Events": {}
     }
 }

@@ -167,17 +167,36 @@
                 "events": {
                     "Closed": "",
                     "ContentRendered": ""
-                }
+                },
+                "_text": ""
             },
-            "Style":{
-                "idm": 12,
+            "ListBox":{
+                "idm": 14,
                 "properties": {
-                    "TargetType": "",
-                    "Property": "",
-                    "Value": ""
+                    "FontSize": 0,
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
                 },
                 "events": {
-                }
+                },
+                "_text": ""
+            },
+            "ListBoxItem":{
+                "idm": 15,
+                "properties": {
+                    "FontSize": 0,
+                    "FontWeight": "",
+                    "FontFamily": "",
+                    "FontStyle":"",
+                    "Foreground":"",
+                    "Background":""
+                },
+                "events": {
+                },
+                "_text": ""
             }
         },
         "com_attr": {

@@ -1,12 +1,12 @@
-<Window x:Class="WpfApplication3.MainWindow"
+<Window x:Class="Thesis_XAML.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="750" Width="300">
+        Title="MainWindow" Height="300" Width="200">
     <DockPanel LastChildFill = "True">
         <Label DockPanel.Dock="Top" 
-                FontSize="26"
+                FontSize="12"
                 FontWeight="Black"
-                FontStyle="Normal">Welcome to XAML-UI Migration Example</Label>
+                FontStyle="Normal">Heading</Label>
         <StackPanel DockPanel.Dock="Left" Margin = "10" HorizontalAlignment="Left">
             <Label Content = "Password" 
                 HorizontalAlignment = "Left" 
@@ -36,17 +36,5 @@
                 HorizontalAlignment = "Center" 
                 Foreground = "Red"/>
         </StackPanel>
-        <StackPanel Margin="10">
-            <Label FontWeight="Bold">Are you ready?</Label>
-            <RadioButton GroupName="ready">Yes</RadioButton>
-            <RadioButton GroupName="ready">No</RadioButton>
-            <RadioButton GroupName="ready" IsChecked="True">Maybe</RadioButton>
-            <ListBox Margin="10" FontSize="10">
-                <ListBoxItem Background="Aqua">Latte Macchiato</ListBoxItem>
-                <ListBoxItem Background="Aqua">Mocha</ListBoxItem>
-                <ListBoxItem Background="Aqua">Latte</ListBoxItem>
-            </ListBox>
-        </StackPanel>
-        <Image DockPanel.Dock="Right" Margin="10" Source=""></Image>
     </DockPanel>
 </Window>
