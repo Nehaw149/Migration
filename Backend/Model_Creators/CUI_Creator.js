@@ -24,10 +24,13 @@ function generate_CUI_Model(abstract_Model) {
       //  delete if "_attributes" found
       delete abstract_Model._attributes
     }
-    if (key_Element_ID == sequence ) {
+    if (key_Element_ID >= sequence ) {
       element_Obj = abstract_Model[key_Element_ID]
       for (key_Element_Name in element_Obj) {
         //  key_Element_Name: ONLY one always
+        if(key_Element_ID != sequence){
+          sequence = key_Element_ID
+        }
         sequence++
         //  console.log(key_Element_Name)
         elements_Child_Obj = element_Obj[key_Element_Name]
